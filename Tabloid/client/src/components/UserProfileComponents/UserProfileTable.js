@@ -1,13 +1,14 @@
 import React from "react";
-import "../Styles/UserProfileStyles/UserProfileCard.css"
+import "../Styles/UserProfileStyles/UserProfileTable.css"
 
-export default function UserProfileCard({profile}) {
+export default function UserProfileTable({profile}) {
     return(
         <tr>
             <td>{profile.displayName}</td>
             <td>{profile.fullName}</td>
             <td>{profile.email}</td>
             <td>{profile.userType.name}</td>
+            <td>Delete | Edit</td>
         </tr>
     
     );

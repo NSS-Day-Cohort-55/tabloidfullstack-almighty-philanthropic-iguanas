@@ -133,6 +133,55 @@ namespace Tabloid.Repositories
             }
         }
 
+        public List<UserProfile> GetAllDeactivedUserProfiles()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT up.Id, up.FirstName, up.LastName, up.DisplayName, 
+                        up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId, up.IsActive, up.DemoteVote,
+                        ut.Name AS UserTypeName
+                        FROM UserProfile up
+                        LEFT JOIN UserType ut on up.UserTypeId = ut.Id
+                        WHERE IsActive = 0
+                        ORDER BY up.DisplayName
+                    ";
+
+                    List<UserProfile> userProfiles = new List<UserProfile>();
+
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        UserProfile userProfile = new UserProfile()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            FirstName = DbUtils.GetString(reader, "FirstName"),
+                            LastName = DbUtils.GetString(reader, "LastName"),
+                            DisplayName = DbUtils.GetString(reader, "DisplayName"),
+                            Email = DbUtils.GetString(reader, "Email"),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                            UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
+                            IsActive = DbUtils.GetBool(reader, "IsActive"),
+                            DemoteVote = DbUtils.GetInt(reader, "DemoteVote"),
+                            UserType = new UserType()
+                            {
+                                Id = DbUtils.GetInt(reader, "UserTypeId"),
+                                Name = DbUtils.GetString(reader, "UserTypeName"),
+                            }
+                        };
+                        userProfiles.Add(userProfile);
+                    }
+                    reader.Close();
+
+                    return userProfiles;
+                }
+            }
+        }
+
         /*
         public UserProfile GetByFirebaseUserId(string firebaseUserId)
         {

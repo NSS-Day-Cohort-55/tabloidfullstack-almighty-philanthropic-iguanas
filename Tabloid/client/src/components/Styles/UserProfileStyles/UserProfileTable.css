@@ -1,6 +1,6 @@
-table, th, td{
+table{
     border: 1px solid black;
-    width:50%;
+    width:70%;
 }
 th, td{
     padding: 10px;

@@ -30,7 +30,7 @@ export default function ApplicationViews({ isLoggedIn }) {
           <Route Exact path="tags">
               <Route index element={<TagList />} />
               <Route path="add" element={<TagForm />} />
-          </Route> 
+          </Route> cd
           <Route path="*" element={<p>Whoops, nothing here...</p>} />
         </Route>
       </Routes>

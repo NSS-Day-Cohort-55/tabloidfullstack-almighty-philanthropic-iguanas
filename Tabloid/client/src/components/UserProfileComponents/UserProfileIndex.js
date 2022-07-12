@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllActiveUsers } from "../../modules/userProfileManager";
-import UserProfileCard from "./UserProfileCard";
+import UserProfileCard from "./UserProfileTable";
 import "../Styles/UserProfileStyles/UserProfileIndex.css"
+import UserProfileTable from "./UserProfileTable";
 
 export default function UserProfileIndex(){
     const[userProfiles, setUserProfiles] = useState([]);
@@ -36,11 +37,12 @@ export default function UserProfileIndex(){
                             <th>User Name</th>
                             <th>Email</th>
                             <th>User Type</th>
+                            <th>Options</th>
                         </tr>
                     </thead>
                     <tbody>
                         {userProfiles.map((profile)=>(
-                            <UserProfileCard profile={profile} key={profile.id}/>
+                            <UserProfileTable profile={profile} key={profile.id}/>
                         ))}
                     </tbody>
                 </table>
