@@ -9,7 +9,7 @@ export const EditCategory = ({}) => {
     name: "",
   });
   const { categoryId } = useParams();
-  navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     get.getCategory(categoryId).then((category) => {

@@ -6,6 +6,12 @@ import Hello from "./Hello";
 import { CategoryList } from "./category/CategoryList";
 import { CreateCategory } from "./category/CreateCategory";
 import { EditCategory } from "./category/EditCategory";
+import UserProfileIndex from "./UserProfileComponents/UserProfileIndex";
+import DeactivatedUsers from "./UserProfileComponents/DeactivatedUsers";
+import PendingDemotionUsers from "./UserProfileComponents/PendingDemotionUsers";
+import TagList from "./Tags/TagList";
+import TagForm from "./Tags/TagFrom";
+import Posts from "./Posts";
 
 export default function ApplicationViews({ isLoggedIn }) {
   return (
@@ -21,8 +27,21 @@ export default function ApplicationViews({ isLoggedIn }) {
             <Route path="createcategory" element={<CreateCategory />} />
             <Route path="edit/:categoryId" element={<EditCategory />} />
           </Route>
+          <Route path="posts" element={<Posts />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="userProfiles">
+            <Route index element={<UserProfileIndex />} />
+            <Route path="deactivatedUsers" element={<DeactivatedUsers />} />
+            <Route
+              path="pendingDemotionUsers"
+              element={<PendingDemotionUsers />}
+            />
+          </Route>
+          <Route Exact path="tags">
+            <Route index element={<TagList />} />
+            <Route path="add" element={<TagForm />} />
+          </Route>
           <Route path="*" element={<p>Whoops, nothing here...</p>} />
         </Route>
       </Routes>
