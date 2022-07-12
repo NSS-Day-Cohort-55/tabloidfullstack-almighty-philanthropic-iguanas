@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllActiveUsers } from "../../modules/userProfileManager";
+import UserProfileCard from "./UserProfileCard";
+import "../Styles/UserProfileStyles/UserProfileIndex.css"
+
 export default function UserProfileIndex(){
     const[userProfiles, setUserProfiles] = useState([]);
 
@@ -25,7 +28,23 @@ export default function UserProfileIndex(){
                     <p>Pending Demotions</p>
                 </Link>
             </div>
-            <p>Pretend I am a list of user profiles</p>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Display Name</th>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>User Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {userProfiles.map((profile)=>(
+                            <UserProfileCard profile={profile} key={profile.id}/>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

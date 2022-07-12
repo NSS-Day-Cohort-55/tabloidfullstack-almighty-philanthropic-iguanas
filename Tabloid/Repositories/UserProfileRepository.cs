@@ -98,6 +98,7 @@ namespace Tabloid.Repositories
                         FROM UserProfile up
                         LEFT JOIN UserType ut on up.UserTypeId = ut.Id
                         WHERE IsActive = 1
+                        ORDER BY up.DisplayName
                     ";
 
                     List<UserProfile> userProfiles = new List<UserProfile>();
