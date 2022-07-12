@@ -43,5 +43,12 @@ namespace Tabloid.Controllers
                 new { firebaseUserId = userProfile.FirebaseUserId },
                 userProfile);
         }
+
+        [HttpGet]
+        public IActionResult GetAllActiveUsers()
+        {
+            return Ok(_userProfileRepository.GetAllActiveUserProfiles());
+                
+        }
     }
 }
