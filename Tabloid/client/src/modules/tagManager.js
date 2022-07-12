@@ -26,11 +26,8 @@ export const addTag = (tag) => {
   };
 
   export const deleteTag = (tagId) => {
-    return fetch(`${baseUrl}/${tagId}`, {
-      method: "DELETE",
-      header: {
-        "Content-Type": "application/json",
-      }
+    return fetch(baseUrl + `/${tagId}`, {
+      method: "DELETE"
     });
   };
 

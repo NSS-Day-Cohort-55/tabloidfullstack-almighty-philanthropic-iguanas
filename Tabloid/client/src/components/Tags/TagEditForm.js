@@ -1,11 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { getTag, updateTag } from "../../modules/tagManager";
-
+import { Button } from "reactstrap";
 
 export const TagEditForm = () => {
-    cont[isLoading, setIsLoading] = useState(true)
+    const[isLoading, setIsLoading] = useState(true)
     const [tag, setTag] = useState(
         {
             name: ''
@@ -44,5 +44,25 @@ export const TagEditForm = () => {
         .then(res => setTag(res))
         .then(setIsLoading(false))
     }, []);
+
+    return (
+        <div className="form-wrapper">
+          <div className="form-input">
+            <label htmlFor="name" >Tag Name:</label>
+            <input
+              type="text"
+              placeholder={tag.name}
+              required
+              autoFocus
+              onChange={handleFieldChange}
+              id="name"
+              value={tag.name}
+            />
+          </div>
+          <div className="popup-buttons">
+            <Button onClick={handleUpdate}>Submit</Button>
+          </div>
+        </div>
+      );
 
 }

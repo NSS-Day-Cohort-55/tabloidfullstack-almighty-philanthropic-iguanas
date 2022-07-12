@@ -12,6 +12,7 @@ import PendingDemotionUsers from "./UserProfileComponents/PendingDemotionUsers";
 import TagList from "./Tags/TagList";
 import TagForm from "./Tags/TagForm";
 import Posts from "./Posts";
+import { TagEditForm } from "./Tags/TagEditForm";
 
 export default function ApplicationViews({ isLoggedIn }) {
   return (
@@ -41,6 +42,7 @@ export default function ApplicationViews({ isLoggedIn }) {
           <Route Exact path="tags">
             <Route index element={<TagList />} />
             <Route path="add" element={<TagForm />} />
+            <Route path="edit/:tagId" element={<TagEditForm />} />
           </Route>
           <Route path="*" element={<p>Whoops, nothing here...</p>} />
         </Route>
