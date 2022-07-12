@@ -20,5 +20,16 @@ namespace Tabloid.Models
 
         public Category Category { get; set; }
 
+        public double EstimatedReadTime
+        {
+            get
+            {
+                char[] delimiters = new char[] { ' ', '\r', '\n' };
+                double wordCount = Content.Split(delimiters, StringSplitOptions.RemoveEmptyEntries).Length;
+                double estimatedReadTime = Math.Round(wordCount / 265);
+                return estimatedReadTime;
+            }
+        }
+
     }
 }
