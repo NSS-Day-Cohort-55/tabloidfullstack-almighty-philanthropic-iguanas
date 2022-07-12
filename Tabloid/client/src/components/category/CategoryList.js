@@ -10,7 +10,6 @@ export const CategoryList = ({}) => {
   const navigate = useNavigate();
 
   const getCategories = () => {
-    console.log("hi");
     return get.getAllCategories().then((categories) => {
       setCategories(categories);
     });

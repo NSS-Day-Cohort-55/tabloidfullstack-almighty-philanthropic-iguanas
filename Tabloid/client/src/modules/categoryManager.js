@@ -26,3 +26,13 @@ export const deleteCategory = (id) => {
     method: "DELETE",
   });
 };
+
+export const editCategory = (category) => {
+  return fetch(baseUrl + `/${category.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(category),
+  }).then((data) => data.json());
+};

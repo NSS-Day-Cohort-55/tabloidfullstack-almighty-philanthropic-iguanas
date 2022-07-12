@@ -5,6 +5,7 @@ import Register from "./Register";
 import Hello from "./Hello";
 import { CategoryList } from "./category/CategoryList";
 import { CreateCategory } from "./category/CreateCategory";
+import { EditCategory } from "./category/EditCategory";
 
 export default function ApplicationViews({ isLoggedIn }) {
   return (
@@ -18,6 +19,7 @@ export default function ApplicationViews({ isLoggedIn }) {
           <Route path="categories">
             <Route index element={<CategoryList />} />
             <Route path="createcategory" element={<CreateCategory />} />
+            <Route path="edit/:categoryId" element={<EditCategory />} />
           </Route>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
