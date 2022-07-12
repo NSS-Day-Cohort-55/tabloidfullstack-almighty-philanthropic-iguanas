@@ -6,6 +6,9 @@ import Hello from "./Hello";
 import UserProfileIndex from "./UserProfileComponents/UserProfileIndex";
 import DeactivatedUsers from "./UserProfileComponents/DeactivatedUsers";
 import PendingDemotionUsers from "./UserProfileComponents/PendingDemotionUsers";
+import TagList from "./Tags/TagList";
+import TagForm from "./Tags/TagFrom";
+import Posts from "./Posts";
 
 export default function ApplicationViews({ isLoggedIn }) {
   return (
@@ -16,6 +19,7 @@ export default function ApplicationViews({ isLoggedIn }) {
             index
             element={isLoggedIn ? <Hello /> : <Navigate to="/login" />}
           />
+          <Route path="posts" element={<Posts />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="userProfiles">
@@ -23,6 +27,10 @@ export default function ApplicationViews({ isLoggedIn }) {
             <Route path="deactivatedUsers" element={<DeactivatedUsers/>}/>
             <Route path="pendingDemotionUsers" element={<PendingDemotionUsers/>}/>
           </Route>
+          <Route Exact path="tags">
+              <Route index element={<TagList />} />
+              <Route path="add" element={<TagForm />} />
+          </Route> 
           <Route path="*" element={<p>Whoops, nothing here...</p>} />
         </Route>
       </Routes>
