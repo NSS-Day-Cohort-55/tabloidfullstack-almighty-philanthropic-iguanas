@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPost } from "../modules/postManager";
-import {RemoveTimeFromDateTime} from "./Helpers";
+import {RemoveTimeFromDateTime} from "../helpers/formatDate";
 
 export default function PostDetails() {
     

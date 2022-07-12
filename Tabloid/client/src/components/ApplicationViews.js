@@ -14,6 +14,7 @@ import TagForm from "./Tags/TagFrom";
 import Posts from "./Posts";
 import MyPosts from "./MyPosts";
 import PostDetails from "./PostDetails";
+import CreatePost from "./CreatePost";
 
 export default function ApplicationViews({ isLoggedIn }) {
   return (
@@ -30,6 +31,7 @@ export default function ApplicationViews({ isLoggedIn }) {
             <Route path="edit/:categoryId" element={<EditCategory />} />
           </Route>
           <Route path="posts" element={<Posts />} />
+          <Route path="posts/create" element={<CreatePost />} />
           <Route path="posts/:id" element={<PostDetails />} />
           <Route path="myPosts" element={<MyPosts />} />
           <Route path="login" element={<Login />} />
