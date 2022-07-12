@@ -70,7 +70,7 @@ CREATE TABLE [Post] (
   [CreateDateTime] datetime NOT NULL,
   [PublishDateTime] datetime,
   [IsApproved] bit NOT NULL,
-  [CategoryId] integer NOT NULL,
+  [CategoryId] integer,
   [UserProfileId] integer NOT NULL,
 
   CONSTRAINT [FK_Post_Category] FOREIGN KEY ([CategoryId]) REFERENCES [Category] ([Id]),
