@@ -9,8 +9,9 @@ import { EditCategory } from "./category/EditCategory";
 import UserProfileIndex from "./UserProfileComponents/UserProfileIndex";
 import DeactivatedUsers from "./UserProfileComponents/DeactivatedUsers";
 import PendingDemotionUsers from "./UserProfileComponents/PendingDemotionUsers";
+import { TagEditForm } from "./Tags/TagEditForm";
 import TagList from "./Tags/TagList";
-import TagForm from "./Tags/TagFrom";
+import TagForm from "./Tags/TagForm";
 import Posts from "./Post/Posts";
 import MyPosts from "./Post/MyPosts";
 import PostDetails from "./Post/PostDetails";
@@ -49,6 +50,7 @@ export default function ApplicationViews({ isLoggedIn }) {
           <Route Exact path="tags">
             <Route index element={<TagList />} />
             <Route path="add" element={<TagForm />} />
+            <Route path="edit/:tagId" element={<TagEditForm />} />
           </Route>
           <Route path="*" element={<p>Whoops, nothing here...</p>} />
         </Route>

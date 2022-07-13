@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { addTag } from "../../modules/tagManager";
 import { useNavigate } from "react-router-dom";
+import { Button } from "reactstrap";
 
 const TagForm = (getTags) => {
     const [tag,setTag] =useState({
@@ -30,7 +31,7 @@ const TagForm = (getTags) => {
                     <label htmlFor="tagName">Tag Name:</label>
                     <input type="text" id="name" onChange={handleFieldChange} required autoFocus className="form-control" placeholder="Tag Name" value={tag.name} />
                 </fieldset>
-                <button type="button" onClick={handleSaveClick} className="saveTagButton">Save Tag</button>
+                <Button type="button" onClick={handleSaveClick} className="saveTagButton">Save Tag</Button>
             </form>
         </div>
     )

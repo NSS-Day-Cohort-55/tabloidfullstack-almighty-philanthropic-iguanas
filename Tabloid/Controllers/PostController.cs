@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using Tabloid.Repositories;
 using Tabloid.Models;
 using System;
@@ -36,6 +36,17 @@ namespace Tabloid.Controllers
         public IActionResult Get(int id)
         {
             var post = _postRepository.GetPublishedPostById(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            return Ok(post);
+        }
+
+        [HttpGet("GetCategoryPosts/{categoryId}")]
+        public IActionResult GetPostsByCategory(int categoryId)
+        {
+            var post = _postRepository.GetPostsByCategory(categoryId);
             if (post == null)
             {
                 return NotFound();

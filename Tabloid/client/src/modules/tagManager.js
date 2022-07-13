@@ -14,3 +14,25 @@ export const addTag = (tag) => {
       body: JSON.stringify(tag),
     });
   };
+
+  export const updateTag = (tag) => {
+    return fetch(`${baseUrl}/edit/${tag.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(tag),
+    });
+  };
+
+  export const deleteTag = (tagId) => {
+    return fetch(baseUrl + `/${tagId}`, {
+      method: "DELETE"
+    });
+  };
+
+  export const getTag = (id) => {
+    return fetch(`${baseUrl}/${id}`)
+    .then((res)=> res.json())
+ 
+  }
