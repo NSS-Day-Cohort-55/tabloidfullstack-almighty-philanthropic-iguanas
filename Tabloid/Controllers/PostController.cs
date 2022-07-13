@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Tabloid.Repositories;
+using Tabloid.Models;
+using System;
 
 namespace Tabloid.Controllers
 {
@@ -10,10 +12,12 @@ namespace Tabloid.Controllers
     public class PostController : ControllerBase
     {
         private readonly IPostRepository _postRepository;
+        private readonly IUserProfileRepository _userProfileRepository;
 
-        public PostController(IPostRepository postRepository)
+        public PostController(IPostRepository postRepository, IUserProfileRepository userProfileRepository)
         {
             _postRepository = postRepository;
+            _userProfileRepository = userProfileRepository;
         }
 
         [HttpGet]
@@ -32,11 +36,47 @@ namespace Tabloid.Controllers
         public IActionResult Get(int id)
         {
             var post = _postRepository.GetPublishedPostById(id);
-            if(post == null)
+            if (post == null)
             {
                 return NotFound();
             }
             return Ok(post);
+        }
+
+        [HttpPost]
+        public IActionResult Post(Post post)
+        {
+            post.CreateDateTime = DateTime.Now;
+            post.UserProfileId = 1;
+            //post.UserProfileId = GetCurrentUserProfile().Id;
+
+            _postRepository.AddPost(post);
+            return CreatedAtAction("Get", new { id = post.Id }, post);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Post post)
+        {
+            if(id != post.Id)
+            {
+                return BadRequest();
+            }
+            _postRepository.UpdatePost(post);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _postRepository.DeletePost(id);
+            return NoContent();
+        }
+
+
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
         }
     }
 }

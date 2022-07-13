@@ -4,6 +4,14 @@ export const RemoveTimeFromDateTime = (date) => {
   return splitArray[0];
 }
 
+export const PostPublishDateTime = (unformattedDate) => {
+  let splitArray = unformattedDate.split("-");
+  let year = splitArray[0];
+  let month = splitArray[1];
+  let day = splitArray[2];
+  return `${year}-${month}-${day}T00:00:00.000`;
+}
+
 // pass in a C# date to get date back in MDY format
 export const formatMDY = (integer) => {
   const date = new Date(Date.parse(integer));
@@ -14,8 +22,3 @@ export const formatMDY = (integer) => {
   return formattedDate; // returns the date with desired format
 };
 
-export const RemoveTimeFromDateTime = (date) => {
-  let dateString = date.toString();
-  let splitArray = dateString.split("T");
-  return splitArray[0];
-};

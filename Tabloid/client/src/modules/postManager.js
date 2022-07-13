@@ -1,3 +1,4 @@
+import "firebase/auth";
 const apiUrl = "/api/Post"
 
 export const getAllPosts = () => {
