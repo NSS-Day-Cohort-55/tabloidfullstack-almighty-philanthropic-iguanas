@@ -1,101 +1,123 @@
-import React, { useEffect, useState } from 'react';
-import {useNavigate} from "react-router-dom";
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import {addPost} from "../../modules/postManager";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import { addPost } from "../../modules/postManager";
 import firebase from "firebase/app";
 import "firebase/auth";
-import { getAllCategories } from '../../modules/categoryManager';
-import { PostPublishDateTime } from '../../helpers/formatDate';
+import { getAllCategories } from "../../modules/categoryManager";
+import { PostPublishDateTime } from "../../helpers/formatDate";
 
-export default function CreatePost () {
-    
-    const emptyPost = {
-        title: "",
-        content: "",
-        imageLocation: "",
-        publishDateTime: "",
-        isApproved: false,
-        categoryId: 0,
-        userProfileId: 1
-    };
+export default function CreatePost({ user }) {
+  const emptyPost = {
+    title: "",
+    content: "",
+    imageLocation: "",
+    publishDateTime: "",
+    isApproved: false,
+    categoryId: 0,
+    userProfileId: user?.id,
+  };
 
-    const [post, setPost] = useState(emptyPost);
-    const [categories, setCategories] = useState([]);
-    
-    const navigate = useNavigate();
+  const [post, setPost] = useState(emptyPost);
+  const [categories, setCategories] = useState([]);
 
-    const handleInputChange = (evt) => {
-        const stateToChange = {...post};
-        stateToChange[evt.target.id] = evt.target.value;
-        setPost(stateToChange);
-    };
+  const navigate = useNavigate();
 
-    const integerCheck = (evt) => {
-        const newPost = { ...post }
-        
-        if(evt.target.id === "categoryId") {
-            newPost.categoryId = parseInt(evt.target.value)
-        }
-        setPost(newPost)
-      }
+  const handleInputChange = (evt) => {
+    const stateToChange = { ...post };
+    stateToChange[evt.target.id] = evt.target.value;
+    setPost(stateToChange);
+  };
 
-    const handleSubmitPost = (evt) => {
-            
-        post.publishDateTime = PostPublishDateTime(post.publishDateTime);
+  const integerCheck = (evt) => {
+    const newPost = { ...post };
 
-        addPost(post)
-        .then(() => navigate("/posts"))
-        .catch((err) => alert(`An error occured: ${err.message}`));
-    };
+    if (evt.target.id === "categoryId") {
+      newPost.categoryId = parseInt(evt.target.value);
+    }
+    setPost(newPost);
+  };
 
-    useEffect(() => {
-        getAllCategories()
-        .then(allCategories => {
-            setCategories(allCategories)
-        })
-    }, [])
+  const handleSubmitPost = (evt) => {
+    post.publishDateTime = PostPublishDateTime(post.publishDateTime);
 
-    return (
-        <Form>
-            <FormGroup>
-                <Label for="title">Title</Label>
-                <Input type="text" name="title" id="title" placeholder="title"
-                value={post.title}
-                onChange={handleInputChange} />
-            </FormGroup>
-            <FormGroup>
-                <Label for="content">Content</Label>
-                <Input type="text" name="content" id="content" placeholder="content" 
-                value={post.content}
-                onChange={handleInputChange} />
-            </FormGroup>
+    addPost(post)
+      .then(() => navigate("/posts"))
+      .catch((err) => alert(`An error occured: ${err.message}`));
+  };
 
-            <FormGroup>
-                <Label for="categoryId">Category</Label> <br></br>
-                    <select value={post.categoryId} name="categoryId" id="categoryId" onChange={integerCheck}>
-                        <option value="0" >Select Category</option>
-                        {categories.map(c => (
-                            <option key={c.id} value={c.id}>
-                                {c.name}
-                        </option>
-                        ))}
-                    </select>        
-            </FormGroup>
+  useEffect(() => {
+    getAllCategories().then((allCategories) => {
+      setCategories(allCategories);
+    });
+  }, []);
 
-            <FormGroup>
-                <Label for="imageLocation">Image Location</Label>
-                <Input type="text" name="imageLocation" id="imageLocation"
-                    value={post.imageLocation}
-                    onChange={handleInputChange} />
-            </FormGroup>
+  return (
+    <Form>
+      <FormGroup>
+        <Label for="title">Title</Label>
+        <Input
+          type="text"
+          name="title"
+          id="title"
+          placeholder="title"
+          value={post.title}
+          onChange={handleInputChange}
+        />
+      </FormGroup>
+      <FormGroup>
+        <Label for="content">Content</Label>
+        <Input
+          type="text"
+          name="content"
+          id="content"
+          placeholder="content"
+          value={post.content}
+          onChange={handleInputChange}
+        />
+      </FormGroup>
 
-            <FormGroup>
-                <Label for="publishDateTime">Publish Date</Label>
-                <Input type="date" name="publishDateTime" id="publishDateTime"
-                value={post.publishDateTime}
-                onChange={handleInputChange} />
-            </FormGroup>
-            <Button className="btn btn-primary" onClick={handleSubmitPost}>Submit</Button>
+      <FormGroup>
+        <Label for="categoryId">Category</Label> <br></br>
+        <select
+          value={post.categoryId}
+          name="categoryId"
+          id="categoryId"
+          onChange={integerCheck}
+        >
+          <option value="0">Select Category</option>
+          {categories.map((c) => (
+            <option key={c.id} value={c.id}>
+              {c.name}
+            </option>
+          ))}
+        </select>
+      </FormGroup>
+
+      <FormGroup>
+        <Label for="imageLocation">Image Location</Label>
+        <Input
+          type="text"
+          name="imageLocation"
+          id="imageLocation"
+          value={post.imageLocation}
+          onChange={handleInputChange}
+        />
+      </FormGroup>
+
+      <FormGroup>
+        <Label for="publishDateTime">Publish Date</Label>
+        <Input
+          type="date"
+          name="publishDateTime"
+          id="publishDateTime"
+          value={post.publishDateTime}
+          onChange={handleInputChange}
+        />
+      </FormGroup>
+      <Button className="btn btn-primary" onClick={handleSubmitPost}>
+        Submit
+      </Button>
     </Form>
-    )
+  );
 }
