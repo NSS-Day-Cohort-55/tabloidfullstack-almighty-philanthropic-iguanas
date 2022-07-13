@@ -43,7 +43,10 @@ namespace Tabloid.Repositories
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
                             UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
                             IsActive = DbUtils.GetBool(reader, "IsActive"),
-                            DemoteVote = DbUtils.GetInt(reader, "DemoteVote"),
+                            DemoteVoter = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "DemoteVote")
+                            },
                             UserType = new UserType()
                             {
                                 Id = DbUtils.GetInt(reader, "UserTypeId"),
@@ -117,7 +120,10 @@ namespace Tabloid.Repositories
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
                             UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
                             IsActive = DbUtils.GetBool(reader, "IsActive"),
-                            DemoteVote = DbUtils.GetInt(reader, "DemoteVote"),
+                            DemoteVoter =  new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "DemoteVote")
+                            },
                             UserType = new UserType()
                             {
                                 Id = DbUtils.GetInt(reader, "UserTypeId"),
@@ -151,6 +157,7 @@ namespace Tabloid.Repositories
                     ";
 
                     List<UserProfile> userProfiles = new List<UserProfile>();
+                    UserProfile DemoteVoter = new UserProfile();
 
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())
@@ -166,12 +173,59 @@ namespace Tabloid.Repositories
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
                             UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
                             IsActive = DbUtils.GetBool(reader, "IsActive"),
-                            DemoteVote = DbUtils.GetInt(reader, "DemoteVote"),
+                            DemoteVoter = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "DemoteVote"),
+                            },
                             UserType = new UserType()
                             {
                                 Id = DbUtils.GetInt(reader, "UserTypeId"),
                                 Name = DbUtils.GetString(reader, "UserTypeName"),
                             }
+                        };
+                        userProfiles.Add(userProfile);
+                    }
+                    reader.Close();
+
+                    return userProfiles;
+                }
+            }
+        }
+
+        public List<UserProfile> GetAllPendingDemotionProfiles()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT up.DisplayName, up.FirstName, up.LastName, up.Email, up.CreateDateTime,up.UserTypeId, up.DemoteVote, dv.FirstName AS DemotedBy
+                        FROM UserProfile up
+                        JOIN UserProfile dv ON up.DemoteVote = dv.Id
+                        WHERE up.DemoteVote > 0;
+                    ";
+
+                    List<UserProfile> userProfiles = new List<UserProfile>();
+                    
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        UserProfile userProfile = new UserProfile()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            FirstName = DbUtils.GetString(reader, "FirstName"),
+                            LastName = DbUtils.GetString(reader, "LastName"),
+                            DisplayName = DbUtils.GetString(reader, "DisplayName"),
+                            Email = DbUtils.GetString(reader, "Email"),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
+                            DemoteVoter = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "DemoteVote"),
+                                FirstName = DbUtils.GetString(reader, "DemotedBy")
+                            }
+                            
                         };
                         userProfiles.Add(userProfile);
                     }
