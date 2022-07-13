@@ -200,7 +200,7 @@ namespace Tabloid.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT up.DisplayName, up.FirstName, up.LastName, up.Email, up.CreateDateTime,up.UserTypeId, up.DemoteVote, dv.FirstName AS DemotedBy
+                        SELECT up.Id, up.DisplayName, up.FirstName, up.LastName, up.Email, up.CreateDateTime,up.UserTypeId, up.DemoteVote, dv.FirstName AS DemotedByFirst, dv.LastName AS DemotedByLast
                         FROM UserProfile up
                         JOIN UserProfile dv ON up.DemoteVote = dv.Id
                         WHERE up.DemoteVote > 0;
@@ -223,7 +223,8 @@ namespace Tabloid.Repositories
                             DemoteVoter = new UserProfile()
                             {
                                 Id = DbUtils.GetInt(reader, "DemoteVote"),
-                                FirstName = DbUtils.GetString(reader, "DemotedBy")
+                                FirstName = DbUtils.GetString(reader, "DemotedByFirst"),
+                                LastName = DbUtils.GetString(reader, "DemotedByLast")
                             }
                             
                         };

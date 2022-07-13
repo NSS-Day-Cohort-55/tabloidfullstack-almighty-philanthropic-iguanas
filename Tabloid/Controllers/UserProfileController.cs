@@ -57,5 +57,11 @@ namespace Tabloid.Controllers
             return Ok(_userProfileRepository.GetAllDeactivedUserProfiles());
 
         }
+        [HttpGet("GetPendingDemotions")]
+        public IActionResult GetAllPendingDemotions()
+        {
+            return Ok(_userProfileRepository.GetAllPendingDemotionProfiles());
+
+        }
     }
 }

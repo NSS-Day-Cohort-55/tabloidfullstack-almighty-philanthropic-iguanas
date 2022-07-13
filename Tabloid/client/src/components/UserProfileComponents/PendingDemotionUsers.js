@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
-import { getAllActiveUsers } from "../../modules/userProfileManager";
-import UserProfileTable from "./UserProfileTable";
+import { getAllPendingDemotionUsers } from "../../modules/userProfileManager";
+import PendingDemotionTable from "./PendingDemotionTable";
+import "../Styles/UserProfileStyles/UserProfileTable.css"
 
 
 export default function PendingDemotionUsers(){
     const[userProfiles, setUserProfiles] = useState([]);
 
     const getProfiles = () =>{
-        getAllActiveUsers().then(profiles => {
+        getAllPendingDemotionUsers().then(profiles => {
             setUserProfiles(profiles);
         })
 
@@ -35,13 +36,13 @@ export default function PendingDemotionUsers(){
                             <th>Display Name</th>
                             <th>User Name</th>
                             <th>Email</th>
-                            <th>User Type</th>
+                            <th>Demoted By</th>
                             <th>Options</th>
                         </tr>
                     </thead>
                     <tbody>
                         {userProfiles.map((profile)=>(
-                            <UserProfileTable profile={profile} key={profile.id}/>
+                            <PendingDemotionTable profile={profile} key={profile.id}/>
                         ))}
                     </tbody>
                 </table>

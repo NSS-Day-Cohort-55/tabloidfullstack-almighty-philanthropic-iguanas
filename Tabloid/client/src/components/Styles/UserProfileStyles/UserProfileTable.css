@@ -1,8 +1,12 @@
 table{
-    border: 1px solid black;
-    width:70%;
+    width:80%;
 }
-th, td{
+th{
+    padding: 10px;
+    border-bottom:1px solid lightgray;
+    background-color: lightgreen;
+}
+td{
     padding: 10px;
     border-bottom:1px solid lightgray;
 }

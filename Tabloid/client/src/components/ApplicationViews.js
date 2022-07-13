@@ -9,6 +9,7 @@ import PendingDemotionUsers from "./UserProfileComponents/PendingDemotionUsers";
 import TagList from "./Tags/TagList";
 import TagForm from "./Tags/TagFrom";
 import Posts from "./Posts";
+import UserProfileDetails from "./UserProfileComponents/UserProfileDetails";
 
 export default function ApplicationViews({ isLoggedIn }) {
   return (
@@ -26,6 +27,7 @@ export default function ApplicationViews({ isLoggedIn }) {
             <Route index element={<UserProfileIndex/>}/>
             <Route path="deactivatedUsers" element={<DeactivatedUsers/>}/>
             <Route path="pendingDemotionUsers" element={<PendingDemotionUsers/>}/>
+            <Route path=":id" element={<UserProfileDetails/>}/>
           </Route>
           <Route Exact path="tags">
               <Route index element={<TagList />} />

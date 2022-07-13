@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllDeactivatedUsers } from "../../modules/userProfileManager";
 import UserProfileTable from "./UserProfileTable";
+import "../Styles/UserProfileStyles/UserProfileTable.css"
 
 export default function DeactivatedUsers(){
     const[userProfiles, setUserProfiles] = useState([]);

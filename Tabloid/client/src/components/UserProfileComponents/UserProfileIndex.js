@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllActiveUsers } from "../../modules/userProfileManager";
 import UserProfileCard from "./UserProfileTable";
-import "../Styles/UserProfileStyles/UserProfileIndex.css"
+import "../Styles/UserProfileStyles/UserProfileTable.css"
 import UserProfileTable from "./UserProfileTable";
 
 export default function UserProfileIndex(){
