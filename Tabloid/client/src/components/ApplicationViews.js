@@ -18,6 +18,9 @@ import PostDetails from "./Post/PostDetails";
 import CreatePost from "./Post/CreatePost";
 
 export default function ApplicationViews({ isLoggedIn, user }) {
+  
+  
+  
   return (
     <main>
       <Routes>
@@ -32,10 +35,10 @@ export default function ApplicationViews({ isLoggedIn, user }) {
             <Route path="edit/:categoryId" element={<EditCategory />} />
           </Route>
 
-          <Route path="posts" element={<Posts />} />
+          <Route path="posts" element={<Posts user={user} />} />
           <Route path="posts/:id" element={<PostDetails />} />
           <Route path="posts/CreatePost" element={<CreatePost user={user} />} />
-          <Route path="myPosts" element={<MyPosts />} />
+          <Route path="myPosts" element={<MyPosts user={user}/>} />
 
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />

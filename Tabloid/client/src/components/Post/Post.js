@@ -5,8 +5,8 @@ import { Button, Card, CardBody } from "reactstrap";
 import {deletePost} from "../../modules/postManager";
 
 //go pass in getPosts
-export default function Post({post, getPosts}) {
-    
+export default function Post({post, getPosts, user}) {
+
     const navigate = useNavigate();
 
     const handleDeleteClick = (postId) => {
@@ -26,9 +26,8 @@ export default function Post({post, getPosts}) {
             </Link>
 
             <div className="postEditAndDeleteButtonsContainer">
-                <Button onClick={() => navigate(`./edit/${post.id}`)}>Edit</Button>
-                <Button onClick={() => handleDeleteClick(post.id)}>Delete</Button>
-
+                {user.id == post.userProfileId ? <Button onClick={() => navigate(`./edit/${post.id}`)}>Edit</Button> : ""}
+                {user.id == post.userProfileId || user.userTypeId == 1 ? <Button onClick={() => handleDeleteClick(post.id)}>Delete</Button> : ""}
             </div>
         </div>
     )

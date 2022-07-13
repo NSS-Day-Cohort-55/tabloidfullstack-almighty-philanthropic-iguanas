@@ -5,7 +5,7 @@ import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { getAllPosts, getPostsByCategory } from "../../modules/postManager";
 import { getAllCategories } from "../../modules/categoryManager";
 
-export default function Posts() {
+export default function Posts(user) {
   const [posts, setPosts] = useState([]);
   const [categories, setCategories] = useState([]);
 
@@ -51,7 +51,7 @@ export default function Posts() {
       </select>
       <div className="postListContainer">
         {posts.map((post) => (
-          <Post post={post} key={post.id} getPosts={getPosts} />
+          <Post post={post} key={post.id} user={user} getPosts={getPosts} />
         ))}
       </div>
     
