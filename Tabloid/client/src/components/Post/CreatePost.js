@@ -18,8 +18,6 @@ export default function CreatePost({ user }) {
     userProfileId: user?.id,
   };
 
-  console.log(user);
-
   const [post, setPost] = useState(emptyPost);
   const [categories, setCategories] = useState([]);
 

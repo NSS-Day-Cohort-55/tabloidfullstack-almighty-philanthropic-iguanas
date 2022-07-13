@@ -18,7 +18,6 @@ import PostDetails from "./Post/PostDetails";
 import CreatePost from "./Post/CreatePost";
 
 export default function ApplicationViews({ isLoggedIn, user }) {
-  console.log(user);
   return (
     <main>
       <Routes>
