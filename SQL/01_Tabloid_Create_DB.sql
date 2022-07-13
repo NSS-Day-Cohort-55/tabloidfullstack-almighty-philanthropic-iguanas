@@ -36,6 +36,8 @@ CREATE TABLE [UserProfile] (
   [CreateDateTime] datetime NOT NULL,
   [ImageLocation] nvarchar(255),
   [UserTypeId] integer NOT NULL,
+  [IsActive] bit NOT NULL,
+  [DemoteVote] integer NOT NULL
 
   CONSTRAINT [FK_User_UserType] FOREIGN KEY ([UserTypeId]) REFERENCES [UserType] ([Id]),
   CONSTRAINT UQ_FirebaseUserId UNIQUE(FirebaseUserId)
@@ -68,7 +70,7 @@ CREATE TABLE [Post] (
   [CreateDateTime] datetime NOT NULL,
   [PublishDateTime] datetime,
   [IsApproved] bit NOT NULL,
-  [CategoryId] integer NOT NULL,
+  [CategoryId] integer,
   [UserProfileId] integer NOT NULL,
 
   CONSTRAINT [FK_Post_Category] FOREIGN KEY ([CategoryId]) REFERENCES [Category] ([Id]),

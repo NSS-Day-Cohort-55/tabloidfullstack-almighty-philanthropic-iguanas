@@ -2,6 +2,7 @@ import { getAllTags } from "../../modules/tagManager";
 import Tag from "./Tag.js"
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "reactstrap";
 
 const TagList = () => {
     const [tags, setTags] = useState([]);
@@ -31,7 +32,7 @@ const TagList = () => {
                     <Tag tag={tag} key={tag.id} />
                 ))}
             </div>
-            <button type="button" onClick={handleNavigateAddTag} className="saveTagButton">Add Tag</button>
+            <Button type="button" onClick={handleNavigateAddTag} className="saveTagButton">Add Tag</Button>
         </div>
         </>
     )
