@@ -4,8 +4,7 @@ import { Spinner } from "reactstrap";
 import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
 import { onLoginStatusChange } from "./modules/authManager";
-import firebase from "firebase/app";
-import { getUserByFireBaseId } from "./modules/userProfileManager.js";
+import { getLoggedInUser } from "./modules/userProfileManager.js";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
@@ -17,14 +16,12 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log("im running");
-    if (firebase.auth().currentUser) {
-      getUserByFireBaseId(firebase.auth().currentUser.uid).then((user) => {
+    if (isLoggedIn) {
+      getLoggedInUser().then((user) => {
         setUser(user);
       });
     }
-    console.log(firebase.auth().currentUser?.uid);
-  }, [setIsLoggedIn]);
+  }, [isLoggedIn]);
 
   if (isLoggedIn === null) {
     return <Spinner className="app-spinner dark" />;
@@ -32,7 +29,7 @@ function App() {
 
   return (
     <Router>
-      <Header isLoggedIn={isLoggedIn} userType={user?.userType.name} />
+      <Header isLoggedIn={isLoggedIn} userType={user?.userTypeId} />
       <ApplicationViews isLoggedIn={isLoggedIn} user={user} />
     </Router>
   );
