@@ -15,7 +15,7 @@ import Posts from "./Post/Posts";
 import MyPosts from "./Post/MyPosts";
 import PostDetails from "./Post/PostDetails";
 
-export default function ApplicationViews({ isLoggedIn }) {
+export default function ApplicationViews({ isLoggedIn, user }) {
   return (
     <main>
       <Routes>
