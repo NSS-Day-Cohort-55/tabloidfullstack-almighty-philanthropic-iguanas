@@ -9,13 +9,17 @@ export default function UserProfileDetails()
     const[profile, setProfile] = useState(
         {
             fullName: "",
+            displayName:"",
             email:"",
             isActive: true,
             image:"",
             userType:{
                 name:""
-            }
+            },
+            createDateTime:""
         });
+    
+    
     
 
     useEffect(()=>{
@@ -34,8 +38,9 @@ export default function UserProfileDetails()
         </div>
         <div>
             <p>Full Name: {profile.fullName}</p>
+            <p>Display Name: {profile.displayName}</p>
             <p>Email: {profile.email}</p>
-            <p>Date Joined: This should be a date</p>
+            <p>Date Joined: {profile.createDateTime.slice(0,10)}</p>
             <p>User type: {profile.userType.name}</p>
             {(profile.isActive)?<p>Status: Active</p>:<p>Status: Inactive</p>}
             
