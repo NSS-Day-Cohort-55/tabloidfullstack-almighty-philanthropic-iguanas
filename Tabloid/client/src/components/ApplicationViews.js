@@ -3,18 +3,17 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
-import { CategoryList } from "./category/CategoryList";
-import { CreateCategory } from "./category/CreateCategory";
-import { EditCategory } from "./category/EditCategory";
+import { CategoryList } from "./Category/CategoryList";
+import { CreateCategory } from "./Category/CreateCategory";
+import { EditCategory } from "./Category/EditCategory";
 import UserProfileIndex from "./UserProfileComponents/UserProfileIndex";
 import DeactivatedUsers from "./UserProfileComponents/DeactivatedUsers";
 import PendingDemotionUsers from "./UserProfileComponents/PendingDemotionUsers";
 import TagList from "./Tags/TagList";
-import TagForm from "./Tags/TagForm";
-import Posts from "./Posts";
-import { TagEditForm } from "./Tags/TagEditForm";
-import MyPosts from "./MyPosts";
-import PostDetails from "./PostDetails";
+import TagForm from "./Tags/TagFrom";
+import Posts from "./Post/Posts";
+import MyPosts from "./Post/MyPosts";
+import PostDetails from "./Post/PostDetails";
 
 export default function ApplicationViews({ isLoggedIn }) {
   return (

@@ -7,3 +7,9 @@ export const formatMDY = (integer) => {
   const formattedDate = month + "/" + day + "/" + year;
   return formattedDate; // returns the date with desired format
 };
+
+export const RemoveTimeFromDateTime = (date) => {
+  let dateString = date.toString();
+  let splitArray = dateString.split("T");
+  return splitArray[0];
+};
