@@ -11,7 +11,7 @@ import {
 } from "reactstrap";
 import { logout } from "../modules/authManager";
 
-export default function Header({ isLoggedIn, userType }) {
+export default function Header({ isLoggedIn }) {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
@@ -34,7 +34,7 @@ export default function Header({ isLoggedIn, userType }) {
             )}
           </Nav>
           <Nav navbar>
-            {isLoggedIn && userType === 1 && (
+            {isLoggedIn && (
               <NavItem>
                 <NavLink tag={RRNavLink} to="/userProfiles">
                   User Profiles
@@ -43,7 +43,7 @@ export default function Header({ isLoggedIn, userType }) {
             )}
           </Nav>
           <Nav navbar>
-            {isLoggedIn && userType === 1 && (
+            {isLoggedIn && (
               <NavItem>
                 <NavLink tag={RRNavLink} to="tags">
                   Tags
@@ -61,7 +61,7 @@ export default function Header({ isLoggedIn, userType }) {
             )}
           </Nav>
           <Nav navbar>
-            {isLoggedIn && userType === 1 && (
+            {isLoggedIn && (
               <NavItem>
                 <NavLink tag={RRNavLink} to="/categories">
                   Categories
