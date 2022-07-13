@@ -18,7 +18,9 @@ const Tag = ({ tag }) => {
                 <Link to={`edit/${tag.id}`}>
                     <Button variant="secondary" size="sm">Edit</Button>
                 </Link>
+                <Link to={`/`}>
                 <Button onClick={() => handleDeleteClick(tag.id)}>Delete</Button>
+                </Link>
             </CardBody>
         </Card>
     )

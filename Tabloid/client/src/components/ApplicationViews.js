@@ -13,6 +13,8 @@ import TagList from "./Tags/TagList";
 import TagForm from "./Tags/TagForm";
 import Posts from "./Posts";
 import { TagEditForm } from "./Tags/TagEditForm";
+import MyPosts from "./MyPosts";
+import PostDetails from "./PostDetails";
 
 export default function ApplicationViews({ isLoggedIn }) {
   return (
@@ -29,6 +31,8 @@ export default function ApplicationViews({ isLoggedIn }) {
             <Route path="edit/:categoryId" element={<EditCategory />} />
           </Route>
           <Route path="posts" element={<Posts />} />
+          <Route path="posts/:id" element={<PostDetails />} />
+          <Route path="myPosts" element={<MyPosts />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="userProfiles">

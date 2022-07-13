@@ -13,9 +13,6 @@ export default function Posts () {
         getPosts();
     }, [])
 
-    console.log(posts);
-
-
     return (
         <div className="postListContainer">
             {posts.map((post) => (
