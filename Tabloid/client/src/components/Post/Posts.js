@@ -39,6 +39,7 @@ export default function Posts() {
           }
         > Create Post </Button>
         
+      <Button onClick={() => navigate("./CreatePost")}> Create Post </Button>
 
       <select id="categoryId" onChange={handleFieldChange} defaultValue="0">
         <option value={"0"}>All</option>

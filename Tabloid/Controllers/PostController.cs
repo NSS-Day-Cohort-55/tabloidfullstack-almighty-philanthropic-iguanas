@@ -1,9 +1,9 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Tabloid.Repositories;
 using Tabloid.Models;
-using System;
+using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
@@ -58,9 +58,6 @@ namespace Tabloid.Controllers
         public IActionResult Post(Post post)
         {
             post.CreateDateTime = DateTime.Now;
-            post.UserProfileId = 1;
-            //post.UserProfileId = GetCurrentUserProfile().Id;
-
             _postRepository.AddPost(post);
             return CreatedAtAction("Get", new { id = post.Id }, post);
         }
@@ -68,7 +65,7 @@ namespace Tabloid.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, Post post)
         {
-            if(id != post.Id)
+            if (id != post.Id)
             {
                 return BadRequest();
             }

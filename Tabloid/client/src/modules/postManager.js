@@ -30,6 +30,8 @@ export const addPost = (post) => {
     });
   };
 
+
+
 export const getPostsByCategory = (categoryId) => {
   return fetch(`${apiUrl}/GetCategoryPosts/${categoryId}`).then((res) =>
     res.json()
