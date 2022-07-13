@@ -9,7 +9,7 @@ import { EditCategory } from "./category/EditCategory";
 import UserProfileIndex from "./UserProfileComponents/UserProfileIndex";
 import DeactivatedUsers from "./UserProfileComponents/DeactivatedUsers";
 import PendingDemotionUsers from "./UserProfileComponents/PendingDemotionUsers";
-import TagEditForm from "/Tags/TagEditForm";
+import { TagEditForm } from "./Tags/TagEditForm";
 import TagList from "./Tags/TagList";
 import TagForm from "./Tags/TagForm";
 import Posts from "./Post/Posts";

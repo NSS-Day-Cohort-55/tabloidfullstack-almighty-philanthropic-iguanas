@@ -19,7 +19,7 @@ const Tag = ({ tag }) => {
                     <Button variant="secondary" size="sm">Edit</Button>
                 </Link>
                 <Link to={`/`}>
-                <Button onClick={() => handleDeleteClick(tag.id)}>Delete</Button>
+                <Button variant="secondary" size="sm" onClick={() => handleDeleteClick(tag.id)}>Delete</Button>
                 </Link>
             </CardBody>
         </Card>
