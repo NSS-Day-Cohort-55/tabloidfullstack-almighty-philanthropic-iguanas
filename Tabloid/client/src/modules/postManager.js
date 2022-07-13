@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 import "firebase/auth";
-const apiUrl = "/api/Post"
-=======
 const apiUrl = "/api/Post";
->>>>>>> main
 
 export const getAllPosts = () => {
   return fetch(apiUrl).then((res) => res.json());
@@ -14,22 +10,17 @@ export const getPost = (id) => {
 };
 
 export const getUsersPosts = (userId) => {
-<<<<<<< HEAD
-    return fetch(`${apiUrl}/GetUsersPosts/${userId}`)
-    .then((res) => res.json())
+  return fetch(`${apiUrl}/GetUsersPosts/${userId}`).then((res) => res.json());
 };
 
 export const addPost = (post) => {
-    return fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(post),
-    });
-  };
-=======
-  return fetch(`${apiUrl}/GetUsersPosts/${userId}`).then((res) => res.json());
+  return fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(post),
+  });
 };
 
 export const getPostsByCategory = (categoryId) => {
@@ -37,4 +28,3 @@ export const getPostsByCategory = (categoryId) => {
     res.json()
   );
 };
->>>>>>> main

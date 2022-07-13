@@ -3,9 +3,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
-import { CategoryList } from "./category/CategoryList";
-import { CreateCategory } from "./category/CreateCategory";
-import { EditCategory } from "./category/EditCategory";
+import { CategoryList } from "./Category/CategoryList";
+import { CreateCategory } from "./Category/CreateCategory";
+import { EditCategory } from "./Category/EditCategory";
 import UserProfileIndex from "./UserProfileComponents/UserProfileIndex";
 import DeactivatedUsers from "./UserProfileComponents/DeactivatedUsers";
 import PendingDemotionUsers from "./UserProfileComponents/PendingDemotionUsers";
@@ -18,6 +18,7 @@ import PostDetails from "./Post/PostDetails";
 import CreatePost from "./Post/CreatePost";
 
 export default function ApplicationViews({ isLoggedIn, user }) {
+  console.log(user);
   return (
     <main>
       <Routes>
@@ -31,10 +32,10 @@ export default function ApplicationViews({ isLoggedIn, user }) {
             <Route path="createcategory" element={<CreateCategory />} />
             <Route path="edit/:categoryId" element={<EditCategory />} />
           </Route>
-          
+
           <Route path="posts" element={<Posts />} />
           <Route path="posts/:id" element={<PostDetails />} />
-          <Route path="posts/CreatePost" element={<CreatePost />} />
+          <Route path="posts/CreatePost" element={<CreatePost user={user} />} />
           <Route path="myPosts" element={<MyPosts />} />
 
           <Route path="login" element={<Login />} />
