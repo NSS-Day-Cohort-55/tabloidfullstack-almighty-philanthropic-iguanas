@@ -1,5 +1,5 @@
 import React from "react";
-import "../Styles/UserProfileStyles/UserProfileCard.css"
+//import "../Styles/UserProfileStyles/UserProfileCard.css"
 
 export default function UserProfileCard({profile}) {
     return(
