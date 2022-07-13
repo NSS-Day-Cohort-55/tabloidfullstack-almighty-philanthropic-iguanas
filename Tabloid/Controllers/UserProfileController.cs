@@ -2,6 +2,7 @@
 using System;
 using Tabloid.Models;
 using Tabloid.Repositories;
+using System.Security.Claims;
 
 namespace Tabloid.Controllers
 {
@@ -15,10 +16,24 @@ namespace Tabloid.Controllers
             _userProfileRepository = userProfileRepository;
         }
 
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+        }
+
         [HttpGet("{firebaseUserId}")]
         public IActionResult GetUserProfile(string firebaseUserId)
         {
             return Ok(_userProfileRepository.GetByFirebaseUserId(firebaseUserId));
+        }
+
+        [HttpGet("GetCurrentUserInfo")]
+        public IActionResult GetLoggedInUser()
+        {
+            UserProfile user = GetCurrentUserProfile();
+            user.FirebaseUserId = "lol you can't see this";
+            return Ok(user);
         }
 
         [HttpGet("DoesUserExist/{firebaseUserId}")]
@@ -31,6 +46,8 @@ namespace Tabloid.Controllers
             }
             return Ok();
         }
+
+
 
         [HttpPost]
         public IActionResult Post(UserProfile userProfile)
