@@ -48,7 +48,7 @@ namespace Tabloid.Controllers
         public IActionResult GetAllActiveUsers()
         {
             return Ok(_userProfileRepository.GetAllActiveUserProfiles());
-                
+
         }
 
         [HttpGet("GetDeactivated")]
@@ -57,11 +57,24 @@ namespace Tabloid.Controllers
             return Ok(_userProfileRepository.GetAllDeactivedUserProfiles());
 
         }
+
         [HttpGet("GetPendingDemotions")]
         public IActionResult GetAllPendingDemotions()
         {
             return Ok(_userProfileRepository.GetAllPendingDemotionProfiles());
 
         }
+
+        [HttpGet("Details/{id}")]
+        public IActionResult GetProfileByUserId(int id)
+        {
+            var userProfile = _userProfileRepository.GetProfileById(id);
+            if (userProfile == null)
+            {
+                return NotFound();
+            }
+            return Ok(userProfile);
+        }
+
     }
 }

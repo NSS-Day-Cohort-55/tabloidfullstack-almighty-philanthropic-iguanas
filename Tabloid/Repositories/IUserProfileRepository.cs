@@ -10,5 +10,6 @@ namespace Tabloid.Repositories
         List<UserProfile> GetAllActiveUserProfiles();
         List<UserProfile> GetAllDeactivedUserProfiles();
         List<UserProfile> GetAllPendingDemotionProfiles();
+        UserProfile GetProfileById(int id);
     }
 }
