@@ -9,7 +9,7 @@ export default function UserProfileTable({profile}) {
             <td>{profile.fullName}</td>
             <td>{profile.email}</td>
             <td>{profile.userType.name}</td>
-            <td>Delete | Edit | <Link to={`/userProfiles/${profile.id}`}>Details</Link></td>
+            <td>Delete | <Link to={`/userProfiles/Edit/${profile.id}`}>Edit</Link> | <Link to={`/userProfiles/${profile.id}`}>Details</Link></td>
         </tr>
     
     );
