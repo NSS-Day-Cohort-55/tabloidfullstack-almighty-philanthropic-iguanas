@@ -7,23 +7,23 @@ namespace Tabloid.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CommentController : Controller
+    public class CommentController : ControllerBase
     {
-
         private readonly ICommentRepository _commentRepository;
-
         public CommentController(ICommentRepository commentRepository)
         {
             _commentRepository = commentRepository;
         }
 
-        [HttpGet("GetCommentsByPostId")]
+
+
+        [HttpGet("GetCommentsByPostId/{postId}")]
         public IActionResult GetCommentsByPostId(int postId)
         {
             return Ok(_commentRepository.GetCommentsByPostId(postId));
         }
 
-        [HttpGet("GetCommentById")]
+        [HttpGet("GetCommentById/{id}")]
         public IActionResult GetCommentById(int id)
         {
             return Ok(_commentRepository.GetCommentById(id));
@@ -34,7 +34,7 @@ namespace Tabloid.Controllers
         {
             comment.CreateDateTime = DateTime.Now;
             _commentRepository.AddComment(comment);
-            return CreatedAtAction("Get", new { id = comment.Id }, comment);
+            return CreatedAtAction("GetCommentById", new { id = comment.Id }, comment);
         }
 
         [HttpPut("{id}")]
