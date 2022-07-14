@@ -16,6 +16,11 @@ insert into [Tag] ([Id], [Name])
 values (1, 'C#'), (2, 'JavaScript'), (3, 'Funny'), (4, 'Scary');
 set identity_insert [Tag] off
 
+set identity_insert [Reaction] on 
+insert into [Reaction] ([Id], [Name], [ImageLocation])
+values (1, 'Laugh', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/72/apple/325/face-with-tears-of-joy_1f602.png'), (2, 'Anxious', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/325/anxious-face-with-sweat_1f630.png')
+set identity_insert [Reaction] off
+
 set identity_insert [UserProfile] on
 insert into UserProfile (Id, DisplayName, FirstName, LastName, Email, CreateDateTime, ImageLocation, UserTypeId, FirebaseUserId, IsActive, DemoteVote) values (1, 'Foo', 'Foo', 'Barington', 'foo@bar.com', '2020-04-23', 'https://robohash.org/numquamutut.png?size=150x150&set=set1', 1, 'HGIYeMTYpqfdwXpfSw2AUvxnvsC3',1,0);
 insert into UserProfile (Id, DisplayName, FirstName, LastName, Email, CreateDateTime, ImageLocation, UserTypeId, FirebaseUserId, IsActive, DemoteVote) values (2, 'rdo1', 'Red', 'Do', 'rdo1@timesonline.co.ukx', '2020-04-20', 'https://robohash.org/nisiautemet.png?size=150x150&set=set1', 2, 'vhbgqyeqelhgkohutnoglbdohssl',1,0);

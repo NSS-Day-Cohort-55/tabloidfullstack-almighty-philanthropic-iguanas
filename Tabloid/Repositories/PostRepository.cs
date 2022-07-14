@@ -218,7 +218,7 @@ namespace Tabloid.Repositories
                                 CategoryId = @CategoryId, 
                                 UserProfileId = @UserProfileId
                             WHERE Id = @Id";
-                
+
                     DbUtils.AddParameter(cmd, "@Title", post.Title);
                     DbUtils.AddParameter(cmd, "@Content", post.Content);
                     DbUtils.AddParameter(cmd, "@ImageLocation", post.ImageLocation);
@@ -251,6 +251,37 @@ namespace Tabloid.Repositories
             }
         }
 
+
+        public List<Reaction> GetPostReactions(int postId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT ReactionId, UserProfileId FROM PostReaction WHERE PostId = @postId
+                    ";
+                    DbUtils.AddParameter(cmd, "@postId", postId);
+
+                    var reader = cmd.ExecuteReader();
+
+                    var reactions = new List<Reaction>();
+
+                    while (reader.Read())
+                    {
+                        reactions.Add(new Reaction()
+                        {
+
+
+                        });
+                    }
+
+                    reader.Close();
+
+                    return reactions;
+                }
+            }
+        }
 
 
         private Post NewPostFromReader(SqlDataReader reader)

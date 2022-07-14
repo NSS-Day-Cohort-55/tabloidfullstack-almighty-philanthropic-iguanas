@@ -81,10 +81,11 @@ namespace Tabloid.Controllers
         }
 
 
-        private UserProfile GetCurrentUserProfile()
+        [HttpGet("GetReactionsByPostId/{id}")]
+        public IActionResult GetPostReactions(int id)
         {
-            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+            _postRepository.GetPostReactions(id);
+            return NoContent();
         }
     }
 }
