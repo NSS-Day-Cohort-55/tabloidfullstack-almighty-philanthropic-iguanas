@@ -1,6 +1,6 @@
 import React, {useState, useEffect}from "react";
 import { useParams } from "react-router-dom";
-import { getUserProfileById } from "../../modules/userProfileManager";
+import { getUserProfileById, updateDemotedProfile, updateProfile } from "../../modules/userProfileManager";
 
 export default function UserProfileEdit(){
     const {id} = useParams();
@@ -17,12 +17,23 @@ export default function UserProfileEdit(){
                 name:""
             },
             userTypeId:0,
-            createDateTime:""
+            createDateTime:"",
+            demoteVoter:{
+                id:0
+            }
         });
+    //This will track if the profile was demoted or not by checking to see if they are currently an admin, when the page loads
+    const[isAdminStatus, setIsAdminStatus] = useState(false)
+
+    //Need something here to get ahold of the current user's Id
+    let currentUserId = 1;
     
     useEffect(()=>{
         getUserProfileById(id).then(profile => {
             setProfile(profile);
+            if(profile.userTypeId == 1){
+                setIsAdminStatus(true)
+            }
             
         })
     }, []);
@@ -57,7 +68,8 @@ export default function UserProfileEdit(){
         const profileToEdit = {...profile};
         let isActiveElement = document.getElementById("isActive")
         let value = isActiveElement.value
-        if(value == "active"){
+        
+        if(value == "true"){
             profileToEdit.isActive = true
             setProfile(profileToEdit)
         }else{
@@ -68,7 +80,16 @@ export default function UserProfileEdit(){
     }
 
     const saveChanges = () =>{
-        console.log(profile);
+        if(isAdminStatus){
+            if(profile.userTypeId == 2){
+                profile.demoteVoter.Id = currentUserId;
+                updateDemotedProfile(profile) //Id the user is an admin and they were demoted, they need a special put to handle that 
+            }else{
+                updateProfile(profile) //In all other instances you treat the update with this
+            }
+        }else{
+            updateProfile(profile)
+        }
     }
 
     return(
@@ -114,18 +135,37 @@ export default function UserProfileEdit(){
                 <div className="form-group">
                     <h5>User Type</h5>
                     <label htmlFor="UserTypeId" className="control-label"></label>
-                    <select id="userType" htmlFor="UserTypeId" className="form-control" onChange={handleSelect}>
-                        <option id="admin" value="1">Administrator</option>
-                        <option id="auth" value="2">Author</option>
+                    {/* This ternary statment ensures that the option that matches the profile is selected in the dropdown box TRY DEFAULT VALUE*/}
+                    {/* <select id="userType" htmlFor="UserTypeId" className="form-control" onChange={handleSelect} defaultValue={profile.userTypeId}>
+                        <option id="admin" value="1" >Administrator</option>
+                        <option id="auth" value="2" >Author</option>
+                    </select> */}
+                    {(profile.userTypeId == 1)?
+                    <select id="userType" htmlFor="UserTypeId" className="form-control" onChange={handleSelect} defaultValue="1">
+                        <option id="admin" value="1" >Administrator</option>
+                        <option id="auth" value="2" >Author</option>
                     </select>
+                    :
+                    <select id="userType" htmlFor="UserTypeId" className="form-control" onChange={handleSelect} defaultValue="2">
+                        <option id="admin" value="1" >Administrator</option>
+                        <option id="auth" value="2" >Author</option>
+                    </select>
+                    }
                     {/* <span asp-validation-for="UserTypeId" className="text-danger"></span> */}
                 </div>
                 <div className="form-group">
                     <h5>Status (The User is Active)</h5>
-                    <select id="isActive" htmlFor="isActive" className="form-control" onChange={handleBoolSelect}>
-                        <option id="active" value="active">Active</option>
-                        <option id="inactive" value="inactive">Inactive</option>
+                    {(profile.isActive)?
+                    <select id="isActive" htmlFor="isActive" className="form-control" onChange={handleBoolSelect} defaultValue="true">
+                        <option id="active" value="true">Active</option>
+                        <option id="inactive" value="false">Inactive</option>
                     </select>
+                    :
+                    <select id="isActive" htmlFor="isActive" className="form-control" onChange={handleBoolSelect} defaultValue="false">
+                        <option id="inactive" value="false">Inactive</option>
+                        <option id="active" value="true">Active</option>
+                    </select>
+                    }
                     {/* <span asp-validation-for="DemoteVoteOne" className="text-danger"></span> */}
                 </div>
                 

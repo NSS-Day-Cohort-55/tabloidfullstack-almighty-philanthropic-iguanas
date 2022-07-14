@@ -2,6 +2,7 @@
 using Tabloid.Models;
 using Tabloid.Utils;
 using System.Collections.Generic;
+using System;
 
 namespace Tabloid.Repositories
 {
@@ -284,6 +285,97 @@ namespace Tabloid.Repositories
                     reader.Close();
 
                     return userProfile;
+                }
+            }
+        }
+
+        public void UpdateUserProfile(UserProfile profile)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            UPDATE UserProfile
+                            SET 
+                                DisplayName = @displayName,
+                                FirstName = @firstName,
+                                LastName = @lastName,
+                                Email = @email,
+                                ImageLocation = @imageLocation,
+                                UserTypeId = @userTypeId,
+                                Active = @active,
+                            WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@displayName", profile.DisplayName);
+                    cmd.Parameters.AddWithValue("@firstName", profile.FirstName);
+                    cmd.Parameters.AddWithValue("@lastName", profile.LastName);
+                    cmd.Parameters.AddWithValue("@email", profile.Email);
+                    cmd.Parameters.AddWithValue("@userTypeId", profile.UserTypeId);
+                    cmd.Parameters.AddWithValue("@active", profile.IsActive);
+
+                    //Nullable value
+                    if (profile.ImageLocation == null)
+                    {
+                        cmd.Parameters.AddWithValue("@imageLocation", DBNull.Value);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@imageLocation", profile.ImageLocation);
+                    }
+
+                    cmd.Parameters.AddWithValue("@id", profile.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void UpdateDemotedUserProfile(UserProfile profile)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            UPDATE UserProfile
+                            SET 
+                                DisplayName = @displayName,
+                                FirstName = @firstName,
+                                LastName = @lastName,
+                                Email = @email,
+                                ImageLocation = @imageLocation,
+                                UserTypeId = 1,
+                                Active = @active,
+                                DemoteVote = @demoteVote
+                            WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@displayName", profile.DisplayName);
+                    cmd.Parameters.AddWithValue("@firstName", profile.FirstName);
+                    cmd.Parameters.AddWithValue("@lastName", profile.LastName);
+                    cmd.Parameters.AddWithValue("@email", profile.Email);
+                    //userTypeId is hardcoded to remain one, so that a second demote vote is required
+                    cmd.Parameters.AddWithValue("@active", profile.IsActive);
+                    //The first person to demote the profile is recoreded below
+                    cmd.Parameters.AddWithValue("@demoteVote", profile.DemoteVoter.Id);
+
+                    //Nullable value
+                    if (profile.ImageLocation == null)
+                    {
+                        cmd.Parameters.AddWithValue("@imageLocation", DBNull.Value);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@imageLocation", profile.ImageLocation);
+                    }
+
+                    cmd.Parameters.AddWithValue("@id", profile.Id);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

@@ -93,5 +93,21 @@ namespace Tabloid.Controllers
             return Ok(userProfile);
         }
 
+        [HttpPut("Edit")]
+        public ActionResult Edit(UserProfile profile)
+        {
+            _userProfileRepository.UpdateUserProfile(profile);
+            return NoContent();
+            
+
+        }
+
+        [HttpPut("EditDemoted")]
+        public ActionResult EditDemoted(UserProfile profile)
+        {
+           _userProfileRepository.UpdateDemotedUserProfile(profile);
+            return NoContent();
+        }
+
     }
 }

@@ -11,5 +11,7 @@ namespace Tabloid.Repositories
         List<UserProfile> GetAllDeactivedUserProfiles();
         List<UserProfile> GetAllPendingDemotionProfiles();
         UserProfile GetProfileById(int id);
+        void UpdateUserProfile(UserProfile profile);
+        void UpdateDemotedUserProfile(UserProfile profile);
     }
 }

@@ -27,3 +27,25 @@ export const getLoggedInUser = () => {
     }).then((response) => response.json())
   );
 };
+
+export const updateProfile = (profile) => {
+  return fetch(`${baseUrl}/Edit`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(profile),
+  });
+};
+
+export const updateDemotedProfile = (profile) => {
+  return fetch(`${baseUrl}/EditDemoted`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(profile),
+  });
+};
+
+
