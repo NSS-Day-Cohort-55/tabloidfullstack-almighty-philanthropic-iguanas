@@ -44,7 +44,7 @@ namespace Tabloid.Repositories
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
                             UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
                             IsActive = DbUtils.GetBool(reader, "IsActive"),
-                            DemoteVoter = new UserProfile()
+                            DemoteVoter = new Voter()
                             {
                                 Id = DbUtils.GetInt(reader, "DemoteVote")
                             },
@@ -121,7 +121,7 @@ namespace Tabloid.Repositories
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
                             UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
                             IsActive = DbUtils.GetBool(reader, "IsActive"),
-                            DemoteVoter =  new UserProfile()
+                            DemoteVoter =  new Voter()
                             {
                                 Id = DbUtils.GetInt(reader, "DemoteVote")
                             },
@@ -174,7 +174,7 @@ namespace Tabloid.Repositories
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
                             UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
                             IsActive = DbUtils.GetBool(reader, "IsActive"),
-                            DemoteVoter = new UserProfile()
+                            DemoteVoter = new Voter()
                             {
                                 Id = DbUtils.GetInt(reader, "DemoteVote"),
                             },
@@ -221,11 +221,10 @@ namespace Tabloid.Repositories
                             Email = DbUtils.GetString(reader, "Email"),
                             CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                             UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
-                            DemoteVoter = new UserProfile()
+                            DemoteVoter = new Voter()
                             {
                                 Id = DbUtils.GetInt(reader, "DemoteVote"),
-                                FirstName = DbUtils.GetString(reader, "DemotedByFirst"),
-                                LastName = DbUtils.GetString(reader, "DemotedByLast")
+                                Name = DbUtils.GetString(reader, "DemotedByFirst") + " " + DbUtils.GetString(reader, "DemotedByLast"),
                             }
                             
                         };
@@ -271,7 +270,7 @@ namespace Tabloid.Repositories
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
                             UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
                             IsActive = DbUtils.GetBool(reader, "IsActive"),
-                            DemoteVoter = new UserProfile()
+                            DemoteVoter = new Voter()
                             {
                                 Id = DbUtils.GetInt(reader, "DemoteVote")
                             },
@@ -306,7 +305,7 @@ namespace Tabloid.Repositories
                                 Email = @email,
                                 ImageLocation = @imageLocation,
                                 UserTypeId = @userTypeId,
-                                Active = @active,
+                                IsActive = @isActive
                             WHERE Id = @id";
 
                     cmd.Parameters.AddWithValue("@displayName", profile.DisplayName);
@@ -314,7 +313,7 @@ namespace Tabloid.Repositories
                     cmd.Parameters.AddWithValue("@lastName", profile.LastName);
                     cmd.Parameters.AddWithValue("@email", profile.Email);
                     cmd.Parameters.AddWithValue("@userTypeId", profile.UserTypeId);
-                    cmd.Parameters.AddWithValue("@active", profile.IsActive);
+                    cmd.Parameters.AddWithValue("@isActive", profile.IsActive);
 
                     //Nullable value
                     if (profile.ImageLocation == null)
@@ -350,7 +349,7 @@ namespace Tabloid.Repositories
                                 Email = @email,
                                 ImageLocation = @imageLocation,
                                 UserTypeId = 1,
-                                Active = @active,
+                                IsActive = @isActive,
                                 DemoteVote = @demoteVote
                             WHERE Id = @id";
 
@@ -359,7 +358,7 @@ namespace Tabloid.Repositories
                     cmd.Parameters.AddWithValue("@lastName", profile.LastName);
                     cmd.Parameters.AddWithValue("@email", profile.Email);
                     //userTypeId is hardcoded to remain one, so that a second demote vote is required
-                    cmd.Parameters.AddWithValue("@active", profile.IsActive);
+                    cmd.Parameters.AddWithValue("@isActive", profile.IsActive);
                     //The first person to demote the profile is recoreded below
                     cmd.Parameters.AddWithValue("@demoteVote", profile.DemoteVoter.Id);
 

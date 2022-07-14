@@ -1,8 +1,9 @@
 import React, {useState, useEffect}from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getUserProfileById, updateDemotedProfile, updateProfile } from "../../modules/userProfileManager";
 
 export default function UserProfileEdit(){
+    const navigate = useNavigate();
     const {id} = useParams();
     const[profile, setProfile] = useState(
         {
@@ -83,12 +84,13 @@ export default function UserProfileEdit(){
         if(isAdminStatus){
             if(profile.userTypeId == 2){
                 profile.demoteVoter.Id = currentUserId;
-                updateDemotedProfile(profile) //Id the user is an admin and they were demoted, they need a special put to handle that 
+                updateDemotedProfile(profile).then(()=>navigate("/userProfiles")) //Id the user is an admin and they were demoted, they need a special put to handle that 
             }else{
-                updateProfile(profile) //In all other instances you treat the update with this
+                updateProfile(profile).then(()=>navigate("/userProfiles")) //In all other instances you treat the update with this
             }
         }else{
-            updateProfile(profile)
+            updateProfile(profile).then(()=>navigate("/userProfiles"))
+            
         }
     }
 
@@ -136,10 +138,6 @@ export default function UserProfileEdit(){
                     <h5>User Type</h5>
                     <label htmlFor="UserTypeId" className="control-label"></label>
                     {/* This ternary statment ensures that the option that matches the profile is selected in the dropdown box TRY DEFAULT VALUE*/}
-                    {/* <select id="userType" htmlFor="UserTypeId" className="form-control" onChange={handleSelect} defaultValue={profile.userTypeId}>
-                        <option id="admin" value="1" >Administrator</option>
-                        <option id="auth" value="2" >Author</option>
-                    </select> */}
                     {(profile.userTypeId == 1)?
                     <select id="userType" htmlFor="UserTypeId" className="form-control" onChange={handleSelect} defaultValue="1">
                         <option id="admin" value="1" >Administrator</option>
@@ -147,8 +145,8 @@ export default function UserProfileEdit(){
                     </select>
                     :
                     <select id="userType" htmlFor="UserTypeId" className="form-control" onChange={handleSelect} defaultValue="2">
-                        <option id="admin" value="1" >Administrator</option>
                         <option id="auth" value="2" >Author</option>
+                        <option id="admin" value="1" >Administrator</option>
                     </select>
                     }
                     {/* <span asp-validation-for="UserTypeId" className="text-danger"></span> */}
