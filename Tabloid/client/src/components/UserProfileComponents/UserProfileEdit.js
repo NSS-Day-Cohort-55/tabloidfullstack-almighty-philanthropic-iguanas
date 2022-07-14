@@ -28,11 +28,13 @@ export default function UserProfileEdit(){
     }, []);
 
     const handleEdit = (profileForm) =>{
+        //this will handle all text inputs
         const profileToEdit = {...profile};
         profileToEdit[profileForm.target.id] = profileForm.target.value;
         setProfile(profileToEdit)
     }
     const handleSelect = (profileForm) => {
+        //this will handle selecting author or admin
         const profileToEdit = {...profile};
         let userTypeElement = document.getElementById("userType")
         let value = userTypeElement.value
@@ -48,6 +50,21 @@ export default function UserProfileEdit(){
             profileToEdit.userTypeId = 2
             setProfile(profileToEdit)
         }
+    }
+
+    const handleBoolSelect = () => {
+        //This will handle changes in isActive status
+        const profileToEdit = {...profile};
+        let isActiveElement = document.getElementById("isActive")
+        let value = isActiveElement.value
+        if(value == "active"){
+            profileToEdit.isActive = true
+            setProfile(profileToEdit)
+        }else{
+            profileToEdit.isActive = false
+            setProfile(profileToEdit)
+        }
+
     }
 
     const saveChanges = () =>{
@@ -105,8 +122,10 @@ export default function UserProfileEdit(){
                 </div>
                 <div className="form-group">
                     <h5>Status (The User is Active)</h5>
-                    <label htmlFor="isActive" className="control-label"></label>
-                    <input onChange={handleEdit} type="text" id="isActive" name="isActive" className="form-control" value={profile.isActive} />
+                    <select id="isActive" htmlFor="isActive" className="form-control" onChange={handleBoolSelect}>
+                        <option id="active" value="active">Active</option>
+                        <option id="inactive" value="inactive">Inactive</option>
+                    </select>
                     {/* <span asp-validation-for="DemoteVoteOne" className="text-danger"></span> */}
                 </div>
                 
