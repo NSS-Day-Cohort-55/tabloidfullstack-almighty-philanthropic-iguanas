@@ -30,5 +30,39 @@ namespace Tabloid.Repositories
                 }
             }
         }
+
+        public List<Reaction> GetAllReactions()
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    select Id, Name, ImageLocation from reaction
+                ";
+                    var reader = cmd.ExecuteReader();
+
+
+                    var reactions = new List<Reaction>();
+
+                    while (reader.Read())
+                    {
+                        reactions.Add(new Reaction()
+                        {
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            ImageLocation = reader.GetString(reader.GetOrdinal("ImageLocation")),
+                             Id = reader.GetInt32(reader.GetOrdinal("Id"))
+
+                        });
+                    };
+
+                    reader.Close();
+
+                    return reactions;
+
+                }
+            }
+        }
     }
 }

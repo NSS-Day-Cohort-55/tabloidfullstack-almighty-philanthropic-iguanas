@@ -80,12 +80,14 @@ namespace Tabloid.Controllers
             return NoContent();
         }
 
-
-        [HttpGet("GetReactionsByPostId/{id}")]
-        public IActionResult GetPostReactions(int id)
+        [HttpDelete, HttpPost("HandlePostReaction/{postId}/{reactionId}/{userId}")]
+        public IActionResult HandlePostReaction(int postId, int reactionId, int userId)
         {
-            _postRepository.GetPostReactions(id);
+            _postRepository.HandlePostReaction(postId, reactionId, userId);
             return NoContent();
         }
+
+
+
     }
 }

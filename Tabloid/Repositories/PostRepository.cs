@@ -252,36 +252,34 @@ namespace Tabloid.Repositories
         }
 
 
-        public List<Reaction> GetPostReactions(int postId)
+
+        public void HandlePostReaction(int postId, int reactionId, int userProfileId)
         {
-            using (var conn = Connection)
+            using (SqlConnection conn = Connection)
             {
                 conn.Open();
-                using (var cmd = conn.CreateCommand())
+                using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT ReactionId, UserProfileId FROM PostReaction WHERE PostId = @postId
-                    ";
-                    DbUtils.AddParameter(cmd, "@postId", postId);
+                    cmd.CommandText = @"
+                             if exists (select * from postreaction where postreaction.ReactionId = @ReactionId AND postreaction.PostId = @PostId AND postreaction.UserProfileId = @UserProfileId)
+                             delete from postreaction where postreaction.ReactionId = @ReactionId AND postreaction.PostId = @PostId AND postreaction.UserProfileId = @UserProfileId
+                             else
+                             insert into PostReaction (ReactionId, PostId, UserProfileId)
+                             values (@ReactionId, @PostId, @UserProfileId)
+                ";
 
-                    var reader = cmd.ExecuteReader();
+                    cmd.Parameters.AddWithValue("@ReactionId", reactionId);
+                    cmd.Parameters.AddWithValue("@PostId", postId);
+                    cmd.Parameters.AddWithValue("@UserProfileId", userProfileId);
 
-                    var reactions = new List<Reaction>();
-
-                    while (reader.Read())
-                    {
-                        reactions.Add(new Reaction()
-                        {
+                    cmd.ExecuteScalar();
 
 
-                        });
-                    }
-
-                    reader.Close();
-
-                    return reactions;
                 }
             }
         }
+
+
 
 
         private Post NewPostFromReader(SqlDataReader reader)

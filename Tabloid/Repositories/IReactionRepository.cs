@@ -7,5 +7,7 @@ namespace Tabloid.Repositories
     public interface IReactionRepository
     {
         void AddReaction(Reaction reaction);
+
+        List<Reaction> GetAllReactions();
     }
 }

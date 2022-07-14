@@ -16,11 +16,19 @@ namespace Tabloid.Controllers
         }
 
 
+        [HttpGet]
+        public IActionResult GetAllReactions()
+        {
+            _reactionRepository.GetAllReactions();
+            return Ok(_reactionRepository.GetAllReactions());
+        }
+
         [HttpPost]
         public IActionResult Post(Reaction reaction)
         {
             _reactionRepository.AddReaction(reaction);
-            return CreatedAtAction("Get", new { id = reaction.Id }, reaction);
+            return CreatedAtAction("GetAllReactions", new { id = reaction.Id }, reaction);
         }
     }
 }
+ 

@@ -13,7 +13,9 @@ namespace Tabloid.Repositories
         void UpdatePost(Post post);
         void DeletePost(int id);
 
-        List<Reaction> GetPostReactions(int id);
+        
+
+        void HandlePostReaction(int postId, int reactionId, int userId);
 
 
         List<Post> GetPostsByCategory(int categoryId);
