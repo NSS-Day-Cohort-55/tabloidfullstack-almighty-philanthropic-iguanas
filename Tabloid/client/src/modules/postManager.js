@@ -36,7 +36,13 @@ export const getPostsByCategory = (categoryId) => {
 };
 
 export const getPostReactions = (postId) => {
-  return fetch(`${apiUrl}/GetReactionsByPostId/${postId}`).then((res) =>
+  return fetch(`${apiUrl}/GetPostReactions/${postId}`).then((res) =>
     res.json()
+  );
+};
+
+export const handlePostReaction = (postId, reactionId, userId) => {
+  return fetch(
+    `${apiUrl}/api/Post/HandlePostReaction/${postId}/${reactionId}/${userId}`
   );
 };

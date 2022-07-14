@@ -87,6 +87,13 @@ namespace Tabloid.Controllers
             return NoContent();
         }
 
+        [HttpGet("GetPostReactions/{id}")]
+        public IActionResult GetPostReactionCounts(int postId)
+        {
+            _postRepository.GetPostReactionCounts(postId);
+            return Ok(_postRepository.GetPostReactionCounts(postId));
+        }
+
 
 
     }

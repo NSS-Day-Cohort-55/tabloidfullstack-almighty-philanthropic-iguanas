@@ -279,6 +279,32 @@ namespace Tabloid.Repositories
             }
         }
 
+        public List<string> GetPostReactionCounts(int postId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"select ReactionId, count(reactionId) as NumOfReactions 
+                                        from postreaction where postId = @postId
+                                        group by ReactionId";
+                    DbUtils.AddParameter(cmd, "@postId", postId);
+                    var reader = cmd.ExecuteReader();
+                    var strList = new List<string>();
+
+                    while (reader.Read())
+                    {
+                        strList.Add(reader.GetInt32(reader.GetOrdinal("ReactionId")).ToString() + " " + reader.GetInt32(reader.GetOrdinal("NumOfReactions")).ToString());
+                    }
+
+                    return strList;
+
+                }
+            }
+        }
+    
+
 
 
 
