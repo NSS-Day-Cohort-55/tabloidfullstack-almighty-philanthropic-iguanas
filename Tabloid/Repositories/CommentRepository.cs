@@ -39,12 +39,17 @@ namespace Tabloid.Repositories
                                             c.Subject as CommentSubject,
                                             c.Content as CommentContent,
                                             c.CreateDateTime as CommentDate,
-                                            p.Id as PostId
+                                            c.UserProfileId as UserProfileId,
+                                            p.Id as PostId,
+                                            p.Title as PostTitle,
+                                            up.DisplayName as Username
                                               
                                         FROM Comment c
                                         LEFT JOIN Post p ON c.PostId = p.Id
+                                        LEFT JOIN UserProfile up on up.Id = c.UserProfileId
                                         
-                                        WHERE p.id = @id";
+                                        WHERE p.id = @id
+                                        order by CommentDate desc";
 
                     cmd.Parameters.AddWithValue("@id", id);
 
@@ -59,7 +64,12 @@ namespace Tabloid.Repositories
                                 Subject = reader.GetString(reader.GetOrdinal("CommentSubject")),
                                 Content = reader.GetString(reader.GetOrdinal("CommentContent")),
                                 CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CommentDate")),
-
+                                PostId = reader.GetInt32(reader.GetOrdinal("PostId")),
+                                UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
+                                UserProfile = new UserProfile()
+                                {
+                                    DisplayName = reader.GetString(reader.GetOrdinal("Username"))
+                                }
                             };
                             comments.Add(comment);
                         }

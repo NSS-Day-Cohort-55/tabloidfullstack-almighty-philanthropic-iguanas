@@ -16,11 +16,11 @@ import Posts from "./Post/Posts";
 import MyPosts from "./Post/MyPosts";
 import PostDetails from "./Post/PostDetails";
 import CreatePost from "./Post/CreatePost";
+import { CommentList } from "./Post/Comments/CommentList";
+import { EditComment } from "./Post/Comments/EditComment";
+import { CreateComment } from "./Post/Comments/CreateComment";
 
 export default function ApplicationViews({ isLoggedIn, user }) {
-  
-  
-  
   return (
     <main>
       <Routes>
@@ -37,8 +37,20 @@ export default function ApplicationViews({ isLoggedIn, user }) {
 
           <Route path="posts" element={<Posts user={user} />} />
           <Route path="posts/:id" element={<PostDetails />} />
+          <Route
+            path="posts/:id/comments"
+            element={<CommentList user={user} />}
+          />
+          <Route
+            path="posts/:postId/comments/editcomment/:commentId"
+            element={<EditComment />}
+          />
+          <Route
+            path="posts/:postId/createcomment"
+            element={<CreateComment user={user} />}
+          />
           <Route path="posts/CreatePost" element={<CreatePost user={user} />} />
-          <Route path="myPosts" element={<MyPosts user={user}/>} />
+          <Route path="myPosts" element={<MyPosts user={user} />} />
 
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />

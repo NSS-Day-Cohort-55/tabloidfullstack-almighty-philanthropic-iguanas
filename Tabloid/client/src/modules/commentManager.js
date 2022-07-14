@@ -1,7 +1,7 @@
 const baseUrl = "/api/comment";
 
-export const getAllCategories = () => {
-  return fetch(baseUrl).then((res) => res.json());
+export const getCommentById = (id) => {
+  return fetch(baseUrl + `/GetCommentById/${id}`).then((res) => res.json());
 };
 
 export const addComment = (comment) => {
@@ -14,8 +14,10 @@ export const addComment = (comment) => {
   });
 };
 
-export const getComment = (id) => {
-  return fetch(`${baseUrl}/${id}`).then((res) => res.json());
+export const getCommentByPostId = (postId) => {
+  return fetch(`${baseUrl}/GetCommentsByPostId/${postId}`).then((res) =>
+    res.json()
+  );
 };
 
 export const deleteComment = (id) => {

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getPost } from "../../modules/postManager";
 import { RemoveTimeFromDateTime } from "../../helpers/formatDate.js";
+import { Button } from "reactstrap";
 
 export default function PostDetails() {
   const [post, setPost] = useState();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPost(id).then(setPost);
@@ -43,6 +45,22 @@ export default function PostDetails() {
         <p> {post.content} </p>
         <p> {post.publishDateTime} </p>
         <p> {post.userProfile.fullName} </p>
+        <Button
+          onClick={() =>
+            navigate(`/posts/${post.id}/comments`, { state: { post: post } })
+          }
+        >
+          View Comments
+        </Button>
+        <Button
+          onClick={() =>
+            navigate(`/posts/${post.id}/createcomment`, {
+              state: { post: post },
+            })
+          }
+        >
+          Add Comment
+        </Button>
       </div>
     </div>
   );
