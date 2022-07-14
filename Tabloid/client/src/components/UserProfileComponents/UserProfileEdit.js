@@ -1,6 +1,7 @@
 import React, {useState, useEffect}from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getUserProfileById, updateDemotedProfile, updateProfile } from "../../modules/userProfileManager";
+import { Link } from "react-router-dom";
 
 export default function UserProfileEdit(){
     const navigate = useNavigate();
@@ -169,6 +170,7 @@ export default function UserProfileEdit(){
                 
                 <div className="form-group">
                     <button onClick={saveChanges}>Save Changes</button>
+                    <Link to="/userProfiles"><button>Cancel</button></Link>
                 </div>
             </div>
                 
