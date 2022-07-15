@@ -57,11 +57,11 @@ export default function ApplicationViews({ isLoggedIn, user }) {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="userProfiles">
-            <Route index element={<UserProfileIndex/>}/>
+            <Route index element={<UserProfileIndex />}/>
             <Route path="deactivatedUsers" element={<DeactivatedUsers/>}/>
-            <Route path="pendingDemotionUsers" element={<PendingDemotionUsers/>}/>
+            <Route path="pendingDemotionUsers" element={<PendingDemotionUsers user={user}/>}/>
             <Route path=":id" element={<UserProfileDetails/>}/>
-            <Route path="Edit/:id" element={<UserProfileEdit/>}/>
+            <Route path="Edit/:id" element={<UserProfileEdit user={user}/>}/>
           </Route>
           <Route Exact path="tags">
             <Route index element={<TagList />} />

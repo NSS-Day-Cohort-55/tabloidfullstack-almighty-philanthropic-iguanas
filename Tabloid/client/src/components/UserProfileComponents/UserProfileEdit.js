@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getUserProfileById, updateDemotedProfile, updateProfile } from "../../modules/userProfileManager";
 import { Link } from "react-router-dom";
 
-export default function UserProfileEdit(){
+export default function UserProfileEdit({user}){
     const navigate = useNavigate();
     const {id} = useParams();
     const[profile, setProfile] = useState(
@@ -84,7 +84,7 @@ export default function UserProfileEdit(){
     const saveChanges = () =>{
         if(isAdminStatus){
             if(profile.userTypeId === 2){
-                profile.demoteVoter.Id = currentUserId;
+                profile.demoteVoter.id = user.id;
                 updateDemotedProfile(profile).then(()=>navigate("/userProfiles")) //Id the user is an admin and they were demoted, they need a special put to handle that 
             }else{
                 updateProfile(profile).then(()=>navigate("/userProfiles")) //In all other instances you treat the update with this
