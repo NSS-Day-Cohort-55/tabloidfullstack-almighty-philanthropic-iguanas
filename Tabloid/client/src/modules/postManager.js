@@ -10,8 +10,7 @@ export const getPost = (id) => {
 };
 
 export const getUsersPosts = (userId) => {
-    return fetch(`${apiUrl}/GetUsersPosts/${userId}`)
-    .then((res) => res.json())
+  return fetch(`${apiUrl}/GetUsersPosts/${userId}`).then((res) => res.json());
 };
 
 export const addPost = (post) => {
@@ -24,11 +23,6 @@ export const addPost = (post) => {
     });
   };
 
-  export const deletePost = (id) => {
-    return fetch(apiUrl + `/${id}`, {
-      method: "DELETE",
-    });
-  };
 
   export const editPost = (post) => {
     return fetch(apiUrl + `/${post.id}`, {
@@ -40,10 +34,29 @@ export const addPost = (post) => {
     });
   };
 
-
+export const deletePost = (id) => {
+  return fetch(apiUrl + `/${id}`, {
+    method: "DELETE",
+  });
+};
 
 export const getPostsByCategory = (categoryId) => {
   return fetch(`${apiUrl}/GetCategoryPosts/${categoryId}`).then((res) =>
     res.json()
+  );
+};
+
+export const getPostReactions = (postId) => {
+  return fetch(`${apiUrl}/GetPostReactions/${postId}`).then((res) =>
+    res.json()
+  );
+};
+
+export const handlePostReaction = (postId, reactionId, userId) => {
+  return fetch(
+    `${apiUrl}/HandlePostReaction/${postId}/${reactionId}/${userId}`,
+    {
+      method: "POST",
+    }
   );
 };

@@ -9,7 +9,7 @@ import { getLoggedInUser } from "./modules/userProfileManager.js";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
 
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     onLoginStatusChange(setIsLoggedIn);
@@ -23,6 +23,9 @@ function App() {
     }
   }, [isLoggedIn]);
 
+  if (isLoggedIn === null || user === null) {
+    return <Spinner className="app-spinner dark" />;
+  }
 
   return (
     <Router>

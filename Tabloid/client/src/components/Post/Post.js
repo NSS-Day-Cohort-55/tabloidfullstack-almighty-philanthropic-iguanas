@@ -1,25 +1,26 @@
 import React from "react";
 import "./Post.css";
-import {Link, useNavigate} from "react-router-dom";
-import { Button} from "reactstrap";
-import {deletePost} from "../../modules/postManager";
+import { Link, useNavigate } from "react-router-dom";
+import { Button, Card, CardBody } from "reactstrap";
+import { deletePost } from "../../modules/postManager";
 
 //go pass in getPosts
-export default function Post({post, getPosts, user}) {
-    
-    const navigate = useNavigate();
+export default function Post({ post, getPosts, user }) {
+  const navigate = useNavigate();
 
-    const handleDeleteClick = (postId) => {
-        deletePost(postId).then(() => {
-            getPosts();
-        });
-    };
-    
-    return (
-        <div className="postCard">
-            <h3 className="postCardTitle">{post.title}</h3>
-            <p className="postCardAuthor">{post.userProfile.firstName} {post.userProfile.lastName}</p>
-            <p className="postCardCategory">{post.category.name}</p>
+  const handleDeleteClick = (postId) => {
+    deletePost(postId).then(() => {
+      getPosts();
+    });
+  };
+
+  return (
+    <div className="postCard">
+      <h3 className="postCardTitle">{post.title}</h3>
+      <Link to={`/posts/user/${post.userProfileId}`} className="postCardAuthor">
+        {post.userProfile.firstName} {post.userProfile.lastName}
+      </Link>
+      <p className="postCardCategory">{post.category.name}</p>
 
             <div className="postButtons">
                 <Button>
