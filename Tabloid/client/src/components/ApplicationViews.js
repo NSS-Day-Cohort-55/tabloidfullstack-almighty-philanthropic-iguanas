@@ -3,14 +3,16 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
-import { CategoryList } from "./Category/CategoryList";
-import { CreateCategory } from "./Category/CreateCategory";
-import { EditCategory } from "./Category/EditCategory";
+import  {CategoryList}  from "./Category/CategoryList";
+import {CreateCategory} from "./Category/CreateCategory";
+import  {EditCategory}  from "./Category/EditCategory";
 import UserProfileIndex from "./UserProfileComponents/UserProfileIndex";
 import DeactivatedUsers from "./UserProfileComponents/DeactivatedUsers";
 import PendingDemotionUsers from "./UserProfileComponents/PendingDemotionUsers";
 import { TagEditForm } from "./Tags/TagEditForm";
 import TagList from "./Tags/TagList";
+import UserProfileDetails from "./UserProfileComponents/UserProfileDetails";
+import UserProfileEdit from "./UserProfileComponents/UserProfileEdit";
 import TagForm from "./Tags/TagForm";
 import Posts from "./Post/Posts";
 import MyPosts from "./Post/MyPosts";
@@ -61,12 +63,11 @@ export default function ApplicationViews({ isLoggedIn, user }) {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="userProfiles">
-            <Route index element={<UserProfileIndex />} />
-            <Route path="deactivatedUsers" element={<DeactivatedUsers />} />
-            <Route
-              path="pendingDemotionUsers"
-              element={<PendingDemotionUsers />}
-            />
+            <Route index element={<UserProfileIndex/>}/>
+            <Route path="deactivatedUsers" element={<DeactivatedUsers/>}/>
+            <Route path="pendingDemotionUsers" element={<PendingDemotionUsers/>}/>
+            <Route path=":id" element={<UserProfileDetails/>}/>
+            <Route path="Edit/:id" element={<UserProfileEdit/>}/>
           </Route>
           <Route Exact path="tags">
             <Route index element={<TagList />} />

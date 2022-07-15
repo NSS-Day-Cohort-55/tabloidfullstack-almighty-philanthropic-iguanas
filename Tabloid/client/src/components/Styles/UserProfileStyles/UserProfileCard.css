@@ -1,8 +1,0 @@
-table, th, td{
-    border: 1px solid black;
-    width:50%;
-}
-th, td{
-    padding: 10px;
-    border-bottom:1px solid lightgray;
-}
