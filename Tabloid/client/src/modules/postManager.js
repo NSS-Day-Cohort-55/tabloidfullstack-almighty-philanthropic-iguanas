@@ -14,14 +14,25 @@ export const getUsersPosts = (userId) => {
 };
 
 export const addPost = (post) => {
-  return fetch(apiUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(post),
-  });
-};
+    return fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(post),
+    });
+  };
+
+
+  export const editPost = (post) => {
+    return fetch(apiUrl + `/${post.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(post),
+    });
+  };
 
 export const deletePost = (id) => {
   return fetch(apiUrl + `/${id}`, {
