@@ -15,6 +15,7 @@ import UserProfileDetails from "./UserProfileComponents/UserProfileDetails";
 import UserProfileEdit from "./UserProfileComponents/UserProfileEdit";
 import TagForm from "./Tags/TagForm";
 import Posts from "./Post/Posts";
+import EditPost from "./Post/EditPost";
 import MyPosts from "./Post/MyPosts";
 import PostDetails from "./Post/PostDetails";
 import CreatePost from "./Post/CreatePost";
@@ -39,10 +40,8 @@ export default function ApplicationViews({ isLoggedIn, user }) {
 
           <Route path="posts" element={<Posts user={user} />} />
           <Route path="posts/:id" element={<PostDetails />} />
-          <Route
-            path="posts/:id/comments"
-            element={<CommentList user={user} />}
-          />
+          <Route path="posts/:postId/edit" element={<EditPost/>}/>
+          <Route path="posts/:id/comments" element={<CommentList user={user} />} />
           <Route
             path="posts/:postId/comments/editcomment/:commentId"
             element={<EditComment />}

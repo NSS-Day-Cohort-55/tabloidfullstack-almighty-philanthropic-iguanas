@@ -3,3 +3,15 @@
     padding: .5vw;
     margin: .5vw;
 }
+
+.postButtons {
+    display: flex;
+}
+.postButtons Button {
+    margin: .1vw;
+}
+
+.postDetailsLink {
+    color: white;
+    text-decoration: none;
+}

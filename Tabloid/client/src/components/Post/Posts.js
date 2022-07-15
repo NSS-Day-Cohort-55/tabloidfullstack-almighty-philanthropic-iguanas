@@ -5,7 +5,7 @@ import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { getAllPosts, getPostsByCategory } from "../../modules/postManager";
 import { getAllCategories } from "../../modules/categoryManager";
 
-export default function Posts(user) {
+export default function Posts({user}) {
   const [posts, setPosts] = useState([]);
   const [categories, setCategories] = useState([]);
 

@@ -23,9 +23,6 @@ function App() {
     }
   }, [isLoggedIn]);
 
-  if (isLoggedIn === null) {
-    return <Spinner className="app-spinner dark" />;
-  }
 
   return (
     <Router>

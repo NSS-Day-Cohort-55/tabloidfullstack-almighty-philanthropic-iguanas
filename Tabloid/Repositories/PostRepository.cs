@@ -74,7 +74,7 @@ namespace Tabloid.Repositories
                               LEFT JOIN UserProfile u ON p.UserProfileId = u.id
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
                         WHERE IsApproved = 1 AND PublishDateTime < SYSDATETIME()
-                              AND p.id = @id";
+                              AND p.Id = @id";
 
                     cmd.Parameters.AddWithValue("@id", id);
                     var reader = cmd.ExecuteReader();
@@ -229,7 +229,7 @@ namespace Tabloid.Repositories
                     DbUtils.AddParameter(cmd, "@UserProfileId", post.UserProfileId);
                     DbUtils.AddParameter(cmd, "@Id", post.Id);
 
-                    post.Id = (int)cmd.ExecuteScalar();
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
@@ -263,6 +263,7 @@ namespace Tabloid.Repositories
                 ImageLocation = DbUtils.GetString(reader, "HeaderImage"),
                 CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
                 PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime")),
+                IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
                 CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
                 Category = new Category()
                 {

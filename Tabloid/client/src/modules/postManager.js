@@ -30,6 +30,16 @@ export const addPost = (post) => {
     });
   };
 
+  export const editPost = (post) => {
+    return fetch(apiUrl + `/${post.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(post),
+    });
+  };
+
 
 
 export const getPostsByCategory = (categoryId) => {
