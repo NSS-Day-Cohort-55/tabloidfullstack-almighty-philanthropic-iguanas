@@ -218,7 +218,7 @@ namespace Tabloid.Repositories
                                 CategoryId = @CategoryId, 
                                 UserProfileId = @UserProfileId
                             WHERE Id = @Id";
-                
+
                     DbUtils.AddParameter(cmd, "@Title", post.Title);
                     DbUtils.AddParameter(cmd, "@Content", post.Content);
                     DbUtils.AddParameter(cmd, "@ImageLocation", post.ImageLocation);
@@ -250,6 +250,61 @@ namespace Tabloid.Repositories
                 }
             }
         }
+
+
+
+        public void HandlePostReaction(int postId, int reactionId, int userProfileId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                             if exists (select * from postreaction where postreaction.ReactionId = @ReactionId AND postreaction.PostId = @PostId AND postreaction.UserProfileId = @UserProfileId)
+                             delete from postreaction where postreaction.ReactionId = @ReactionId AND postreaction.PostId = @PostId AND postreaction.UserProfileId = @UserProfileId
+                             else
+                             insert into PostReaction (ReactionId, PostId, UserProfileId)
+                             values (@ReactionId, @PostId, @UserProfileId)
+                ";
+
+                    cmd.Parameters.AddWithValue("@ReactionId", reactionId);
+                    cmd.Parameters.AddWithValue("@PostId", postId);
+                    cmd.Parameters.AddWithValue("@UserProfileId", userProfileId);
+
+                    cmd.ExecuteScalar();
+
+
+                }
+            }
+        }
+
+        public List<string> GetPostReactionCounts(int postId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"select ReactionId, count(reactionId) as NumOfReactions 
+                                        from postreaction where postId = @postId
+                                        group by ReactionId";
+                    DbUtils.AddParameter(cmd, "@postId", postId);
+                    var reader = cmd.ExecuteReader();
+                    var strList = new List<string>();
+
+                    while (reader.Read())
+                    {
+                        strList.Add(reader.GetInt32(reader.GetOrdinal("ReactionId")).ToString() + " " + reader.GetInt32(reader.GetOrdinal("NumOfReactions")).ToString());
+                    }
+
+                    return strList;
+
+                }
+            }
+        }
+    
+
 
 
 
