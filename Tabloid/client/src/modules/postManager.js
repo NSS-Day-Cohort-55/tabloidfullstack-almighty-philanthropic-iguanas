@@ -43,6 +43,9 @@ export const getPostReactions = (postId) => {
 
 export const handlePostReaction = (postId, reactionId, userId) => {
   return fetch(
-    `${apiUrl}/api/Post/HandlePostReaction/${postId}/${reactionId}/${userId}`
+    `${apiUrl}/HandlePostReaction/${postId}/${reactionId}/${userId}`,
+    {
+      method: "POST",
+    }
   );
 };

@@ -36,7 +36,7 @@ export default function ApplicationViews({ isLoggedIn, user }) {
           </Route>
 
           <Route path="posts" element={<Posts user={user} />} />
-          <Route path="posts/:id" element={<PostDetails />} />
+          <Route path="posts/:id" element={<PostDetails user={user} />} />
           <Route
             path="posts/:id/comments"
             element={<CommentList user={user} />}
