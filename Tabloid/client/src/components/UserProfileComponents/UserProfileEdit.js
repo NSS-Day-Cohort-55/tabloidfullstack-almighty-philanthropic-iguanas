@@ -52,7 +52,7 @@ export default function UserProfileEdit(){
         let userTypeElement = document.getElementById("userType")
         let value = userTypeElement.value
         
-        if(value == 1){
+        if(value === 1){
             profileToEdit.userType.name = "Admin"
             profileToEdit.userType.id = 1
             profileToEdit.userTypeId = 1
@@ -71,7 +71,7 @@ export default function UserProfileEdit(){
         let isActiveElement = document.getElementById("isActive")
         let value = isActiveElement.value
         
-        if(value == "true"){
+        if(value === "true"){
             profileToEdit.isActive = true
             setProfile(profileToEdit)
         }else{
@@ -83,7 +83,7 @@ export default function UserProfileEdit(){
 
     const saveChanges = () =>{
         if(isAdminStatus){
-            if(profile.userTypeId == 2){
+            if(profile.userTypeId === 2){
                 profile.demoteVoter.Id = currentUserId;
                 updateDemotedProfile(profile).then(()=>navigate("/userProfiles")) //Id the user is an admin and they were demoted, they need a special put to handle that 
             }else{
@@ -139,7 +139,7 @@ export default function UserProfileEdit(){
                     <h5>User Type</h5>
                     <label htmlFor="UserTypeId" className="control-label"></label>
                     {/* This ternary statment ensures that the option that matches the profile is selected in the dropdown box TRY DEFAULT VALUE*/}
-                    {(profile.userTypeId == 1)?
+                    {(profile.userTypeId === 1)?
                     <select id="userType" htmlFor="UserTypeId" className="form-control" onChange={handleSelect} defaultValue="1">
                         <option id="admin" value="1" >Administrator</option>
                         <option id="auth" value="2" >Author</option>
