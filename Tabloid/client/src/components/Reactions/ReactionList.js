@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Card, CardBody } from "reactstrap";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Reaction } from "./Reaction.js";
 import { CreateReaction } from "./CreateReaction.js";
 import * as get from "../../modules/reactionManager.js";
@@ -8,11 +8,16 @@ import * as get from "../../modules/reactionManager.js";
 export const ReactionList = ({}) => {
   const [reactions, setReactions] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const getReactions = () => {
-    return get.getAllReactions().then((reactions) => {
-      setReactions(reactions);
-    });
+    if (location.state != null) {
+      setReactions(location.state.reactions);
+    } else {
+      get.getAllReactions().then((reactions) => {
+        setReactions(reactions);
+      });
+    }
   };
 
   useEffect(() => {
