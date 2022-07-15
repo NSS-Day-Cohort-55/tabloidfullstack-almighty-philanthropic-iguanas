@@ -23,6 +23,7 @@ import { EditComment } from "./Post/Comments/EditComment";
 import { CreateComment } from "./Post/Comments/CreateComment";
 import { ReactionList } from "./Reactions/ReactionList";
 import { CreateReaction } from "./Reactions/CreateReaction";
+import OtherUsersPosts from "./Post/OtherUsersPosts.js";
 
 export default function ApplicationViews({ isLoggedIn, user }) {
   return (
@@ -46,6 +47,10 @@ export default function ApplicationViews({ isLoggedIn, user }) {
           <Route path="posts" element={<Posts user={user} />} />
           <Route path="posts/:id" element={<PostDetails user={user} />} />
           <Route path="userPosts" element={<UserPosts user={user} />} />
+          <Route
+            path="posts/user/:userId"
+            element={<OtherUsersPosts user={user} />}
+          />
           <Route
             path="posts/:id/comments"
             element={<CommentList user={user} />}
