@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "../Styles/UserProfileStyles/UserProfileTable.css"
 import { updateFullyDemotedProfile } from "../../modules/userProfileManager";
 
-export default function PendingDemotionTable({profile}) {
+export default function PendingDemotionTable({profile, user}) {
     const navigate = useNavigate();
-    let currentUserId = 1;
+    let currentUserId = user.id;
     
     const demoteProfile = () =>{
         updateFullyDemotedProfile(profile).then(()=>navigate("/userProfiles"))
@@ -17,10 +17,10 @@ export default function PendingDemotionTable({profile}) {
             <td>{profile.fullName}</td>
             <td>{profile.email}</td>
             <td>{profile.demoteVoter.name}</td>
-            {(currentUserId == profile.demoteVoter.id)?
-                <td><button onClick={demoteProfile}>Demote</button></td>
-                :
+            {(currentUserId === profile.demoteVoter.id)?
                 <td>Demotion requires another Admins vote</td>
+                :
+                <td><button onClick={demoteProfile}>Demote</button></td>
             }
         </tr>
     
