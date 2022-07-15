@@ -16,7 +16,6 @@ import UserProfileEdit from "./UserProfileComponents/UserProfileEdit";
 import TagForm from "./Tags/TagForm";
 import Posts from "./Post/Posts";
 import EditPost from "./Post/EditPost";
-import MyPosts from "./Post/MyPosts";
 import PostDetails from "./Post/PostDetails";
 import CreatePost from "./Post/CreatePost";
 import UserPosts from "./Post/UserPosts.js";
