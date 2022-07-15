@@ -18,7 +18,7 @@ set identity_insert [Tag] off
 
 set identity_insert [Reaction] on 
 insert into [Reaction] ([Id], [Name], [ImageLocation])
-values (1, 'Laugh', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/72/apple/325/face-with-tears-of-joy_1f602.png'), (2, 'Anxious', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/325/anxious-face-with-sweat_1f630.png')
+values (1, 'Laugh', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/72/apple/325/face-with-tears-of-joy_1f602.png'), (2, 'Anxious', 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/72/apple/325/anxious-face-with-sweat_1f630.png')
 set identity_insert [Reaction] off
 
 set identity_insert [UserProfile] on
