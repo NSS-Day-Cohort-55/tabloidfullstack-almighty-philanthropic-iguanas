@@ -1,12 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../Styles/UserProfileStyles/UserProfileTable.css"
+import { updateFullyDemotedProfile } from "../../modules/userProfileManager";
 
 export default function PendingDemotionTable({profile}) {
+    const navigate = useNavigate();
     let currentUserId = 1;
     
     const demoteProfile = () =>{
-        console.log("you did it!!!")
+        updateFullyDemotedProfile(profile).then(()=>navigate("/userProfiles"))
     }
+
     return(
         <tr>
             <td>{profile.displayName}</td>

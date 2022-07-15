@@ -13,5 +13,6 @@ namespace Tabloid.Repositories
         UserProfile GetProfileById(int id);
         void UpdateUserProfile(UserProfile profile);
         void UpdateDemotedUserProfile(UserProfile profile);
+        void UpdateFullyDemotedUserProfile(UserProfile profile);
     }
 }

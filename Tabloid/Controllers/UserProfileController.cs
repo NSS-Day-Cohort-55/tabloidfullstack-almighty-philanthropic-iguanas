@@ -109,5 +109,12 @@ namespace Tabloid.Controllers
             return NoContent();
         }
 
+        [HttpPut("EditFullDemotion")]
+        public ActionResult EditFullDemotion(UserProfile profile)
+        {
+            _userProfileRepository.UpdateFullyDemotedUserProfile(profile);
+            return NoContent();
+        }
+
     }
 }

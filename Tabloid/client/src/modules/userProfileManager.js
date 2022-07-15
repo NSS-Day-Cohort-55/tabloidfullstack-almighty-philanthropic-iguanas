@@ -48,4 +48,14 @@ export const updateDemotedProfile = (profile) => {
   });
 };
 
+export const updateFullyDemotedProfile = (profile) => {
+  return fetch(`${baseUrl}/EditFullDemotion`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(profile),
+  });
+};
+
 

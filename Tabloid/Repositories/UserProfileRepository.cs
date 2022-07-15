@@ -379,6 +379,29 @@ namespace Tabloid.Repositories
             }
         }
 
+        public void UpdateFullyDemotedUserProfile(UserProfile profile)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            UPDATE UserProfile
+                            SET 
+                                UserTypeId = 2,
+                                DemoteVote = 0
+                            WHERE Id = @id
+                    ";
+
+                    cmd.Parameters.AddWithValue("@id", profile.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         /*
         public UserProfile GetByFirebaseUserId(string firebaseUserId)
         {
