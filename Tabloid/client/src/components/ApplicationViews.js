@@ -21,6 +21,8 @@ import CreatePost from "./Post/CreatePost";
 import { CommentList } from "./Post/Comments/CommentList";
 import { EditComment } from "./Post/Comments/EditComment";
 import { CreateComment } from "./Post/Comments/CreateComment";
+import { ReactionList } from "./Reactions/ReactionList";
+import { CreateReaction } from "./Reactions/CreateReaction";
 
 export default function ApplicationViews({ isLoggedIn, user }) {
   return (
@@ -36,9 +38,13 @@ export default function ApplicationViews({ isLoggedIn, user }) {
             <Route path="createcategory" element={<CreateCategory />} />
             <Route path="edit/:categoryId" element={<EditCategory />} />
           </Route>
+          <Route path="reactions">
+            <Route index element={<ReactionList />} />
+            <Route path="createReaction" element={<CreateReaction />} />
+          </Route>
 
           <Route path="posts" element={<Posts user={user} />} />
-          <Route path="posts/:id" element={<PostDetails />} />
+          <Route path="posts/:id" element={<PostDetails user={user} />} />
           <Route
             path="posts/:id/comments"
             element={<CommentList user={user} />}
