@@ -5,7 +5,7 @@ import PendingDemotionTable from "./PendingDemotionTable";
 import "../Styles/UserProfileStyles/UserProfileTable.css"
 
 
-export default function PendingDemotionUsers(){
+export default function PendingDemotionUsers({user}){
     const[userProfiles, setUserProfiles] = useState([]);
 
     const getProfiles = () =>{
@@ -42,7 +42,7 @@ export default function PendingDemotionUsers(){
                     </thead>
                     <tbody>
                         {userProfiles.map((profile)=>(
-                            <PendingDemotionTable profile={profile} key={profile.id}/>
+                            <PendingDemotionTable profile={profile} key={profile.id} user={user}/>
                         ))}
                     </tbody>
                 </table>
