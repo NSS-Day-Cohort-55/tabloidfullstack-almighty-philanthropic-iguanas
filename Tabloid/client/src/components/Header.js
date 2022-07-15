@@ -68,6 +68,13 @@ export default function Header({ isLoggedIn, userType }) {
                 </NavLink>
               </NavItem>
             )}
+            {isLoggedIn && (
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/userPosts">
+                  My Posts
+                </NavLink>
+              </NavItem>
+            )}
           </Nav>
           <Nav navbar>
             {isLoggedIn && userType === 1 && (
