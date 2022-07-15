@@ -7,6 +7,12 @@ namespace Tabloid.Repositories
     {
         void Add(UserProfile userProfile);
         UserProfile GetByFirebaseUserId(string firebaseUserId);
-        public List<UserProfile> GetAllActiveUserProfiles();
+        List<UserProfile> GetAllActiveUserProfiles();
+        List<UserProfile> GetAllDeactivedUserProfiles();
+        List<UserProfile> GetAllPendingDemotionProfiles();
+        UserProfile GetProfileById(int id);
+        void UpdateUserProfile(UserProfile profile);
+        void UpdateDemotedUserProfile(UserProfile profile);
+        void UpdateFullyDemotedUserProfile(UserProfile profile);
     }
 }
