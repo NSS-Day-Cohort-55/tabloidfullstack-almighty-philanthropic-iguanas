@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Post from "./Post";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { getAllPosts, getPostsByCategory } from "../../modules/postManager";
 import { getAllCategories } from "../../modules/categoryManager";
@@ -33,12 +33,6 @@ export default function Posts(user) {
 
   return (
     <>
-      <Button
-          onClick={() =>
-            navigate("./CreatePost")
-          }
-        > Create Post </Button>
-        
       <Button onClick={() => navigate("./CreatePost")}> Create Post </Button>
 
       <select id="categoryId" onChange={handleFieldChange} defaultValue="0">
@@ -54,7 +48,6 @@ export default function Posts(user) {
           <Post post={post} key={post.id} user={user} getPosts={getPosts} />
         ))}
       </div>
-    
     </>
   );
 }

@@ -6,9 +6,13 @@ import * as get from "../../modules/categoryManager.js";
 export const Category = ({ category, getCategories }) => {
   const navigate = useNavigate();
   const handleDeleteClick = (categoryId) => {
-    get.deleteCategory(categoryId).then(() => {
-      getCategories();
-    });
+    if (window.confirm(`Are you sure you want to delete this category`)) {
+      get.deleteCategory(categoryId).then(() => {
+        getCategories();
+      });
+    } else {
+      alert("Category was not deleted");
+    }
   };
 
   return (

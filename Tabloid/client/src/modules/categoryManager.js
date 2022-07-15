@@ -1,6 +1,3 @@
-import firebase from "firebase/app";
-import "firebase/auth";
-
 const baseUrl = "/api/category";
 
 export const getAllCategories = () => {
